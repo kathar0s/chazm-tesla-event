@@ -51,7 +51,7 @@
     { "number": 35, "keywords": ["전화"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 36, "keywords": ["초콜릿"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 37, "keywords": ["독서실"], "day": null, "location": null, "group_id": null, "notes": null },
-    { "number": 38, "keywords": ["노력"], "day": 1, "location": null, "group_id": null, "notes": "작성자 개인 힌트 (샘플)" },
+    { "number": 38, "keywords": ["노력"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 39, "keywords": ["티켓"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 40, "keywords": ["휴일"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 41, "keywords": ["고양이"], "day": null, "location": null, "group_id": null, "notes": null },
