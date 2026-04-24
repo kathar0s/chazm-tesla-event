@@ -14,8 +14,8 @@
     { "id": 3, "name": "노량진", "status": "suspected" }
   ],
   "hints": [
-    { "number": 1, "keywords": ["서약", "요리"], "day": null, "location": null, "group_id": null, "notes": null },
-    { "number": 2, "keywords": ["열매", "바다"], "day": null, "location": null, "group_id": null, "notes": null },
+    { "number": 1, "keywords": ["서약", "요리", "인어공주"], "day": null, "location": null, "group_id": null, "notes": null },
+    { "number": 2, "keywords": ["열매", "바다", "샴페인"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 3, "keywords": ["방"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 4, "keywords": ["소나기"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 5, "keywords": ["후회"], "day": null, "location": null, "group_id": null, "notes": null },
@@ -59,7 +59,7 @@
     { "number": 43, "keywords": ["커피"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 44, "keywords": ["화살"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 45, "keywords": ["생일"], "day": null, "location": null, "group_id": null, "notes": null },
-    { "number": 46, "keywords": ["유튜브"], "day": null, "location": null, "group_id": null, "notes": null },
+    { "number": 46, "keywords": ["유투브"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 47, "keywords": ["향수"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 48, "keywords": ["규칙"], "day": null, "location": null, "group_id": null, "notes": null },
     { "number": 49, "keywords": ["약"], "day": null, "location": null, "group_id": null, "notes": null },
