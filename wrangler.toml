@@ -1,0 +1,12 @@
+# Cloudflare Pages (direct CLI deploy) configuration
+# Docs: https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+#
+# Usage (after running `wrangler login`):
+#   npx wrangler pages deploy . --project-name=chazm-hints
+#
+# For GitHub integration (recommended): configure on the Cloudflare dashboard,
+# this file is not required in that flow.
+
+name = "chazm-hints"
+compatibility_date = "2026-04-24"
+pages_build_output_dir = "."

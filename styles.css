@@ -1,0 +1,345 @@
+/* Pretendard (body) — official jsDelivr CDN, stable URL */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
+
+/* nyjDasan (handwriting keyword font) — same asset chain used on chazm.co.kr */
+@font-face {
+  font-family: nyjDasan;
+  src: url("https://static.chazm.co.kr/chazm-web/5.47.1/_next/static/media/NyjDasanB-s.p.0inf86j4oyk5u.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "nyjDasan Fallback";
+  src: local("Arial");
+  ascent-override: 114.55%;
+  descent-override: 18.96%;
+  line-gap-override: 0%;
+  size-adjust: 74.9%;
+}
+
+:root {
+  --bg: #0b0b0c;
+  --surface: #141416;
+  --surface-2: #1c1c1f;
+  --border: #2a2a2e;
+  --text: #ececec;
+  --text-dim: #9a9a9f;
+  --card-bg: #eeeae3;
+  --card-ink: #1a1a1a;
+  --card-header: #bdb6aa;
+  --accent: #c9b47a;
+  --danger: #d06a6a;
+  --confirmed: #6fb98f;
+  --suspected: #e0b460;
+  --locked: #3a3a3e;
+  --radius: 14px;
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", "Noto Sans KR",
+    Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+  user-select: none;
+  -webkit-user-select: none;
+  caret-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+::selection { background: transparent; color: inherit; }
+::-moz-selection { background: transparent; color: inherit; }
+
+a { color: inherit; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 28px 0 22px;
+  margin-bottom: 28px;
+}
+.site-header h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+.site-header p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+.site-header .meta {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+.site-header nav {
+  margin-top: 14px;
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+}
+.site-header nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.site-header nav a:hover { color: var(--text); border-color: var(--text-dim); }
+
+/* Filter bar */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.filter-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.filter-pill:hover { color: var(--text); }
+.filter-pill.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+.filter-count { margin-left: 6px; opacity: 0.6; font-size: 11px; }
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+/* Card */
+.card {
+  aspect-ratio: 3 / 4;
+  background: var(--card-bg);
+  color: var(--card-ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.55);
+}
+.card-header {
+  padding: 12px 14px 10px;
+  font-size: 12px;
+  color: #6e6b65;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.02);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .num { font-weight: 500; }
+.card-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  text-align: center;
+  min-height: 0;
+}
+.card-keyword {
+  font-family: nyjDasan, "nyjDasan Fallback", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", sans-serif;
+  font-size: 54px;
+  line-height: 1.05;
+  color: var(--card-ink);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.card-keyword.short { font-size: 72px; }
+.card-keyword.long { font-size: 40px; }
+
+/* Badges overlay */
+.badge-row {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+.badge {
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(4px);
+}
+.badge.confirmed { background: var(--confirmed); color: #0b1f12; }
+.badge.suspected { background: var(--suspected); color: #3a2a07; }
+
+/* Locked card */
+.card.locked {
+  background: var(--surface-2);
+  color: var(--text-dim);
+  box-shadow: none;
+  border-color: var(--border);
+}
+.card.locked:hover { transform: none; box-shadow: none; }
+.card.locked .card-header {
+  background: transparent;
+  color: var(--text-dim);
+  border-bottom-color: var(--border);
+}
+.card.locked .card-keyword {
+  color: var(--text-dim);
+  opacity: 0.35;
+  filter: blur(1.5px);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+  animation: fade 0.18s ease;
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  width: 100%;
+  max-width: 306px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.modal-card {
+  width: 306px;
+  height: 306px;
+  max-width: 100%;
+  background: var(--card-bg);
+  color: var(--card-ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.modal-card-header {
+  padding: 14px 18px 12px;
+  font-size: 13px;
+  color: #6e6b65;
+  background: rgba(0, 0, 0, 0.02);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.modal-close {
+  background: none;
+  border: none;
+  color: #6e6b65;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.modal-card-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  min-height: 0;
+}
+.modal-keyword {
+  font-family: nyjDasan, "nyjDasan Fallback", -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", sans-serif;
+  font-size: 108px;
+  line-height: 1;
+  color: var(--card-ink);
+  word-break: keep-all;
+}
+.modal-keyword.long { font-size: 72px; }
+.modal-meta-panel {
+  width: 306px;
+  max-width: 100%;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 13px;
+  text-align: left;
+}
+.modal-meta-panel .row {
+  display: flex;
+  padding: 5px 0;
+  gap: 10px;
+}
+.modal-meta-panel .label {
+  color: var(--text-dim);
+  min-width: 70px;
+}
+.modal-meta-panel .value { flex: 1; color: var(--text); }
+
+/* Footer */
+.site-footer {
+  margin: 48px 0 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 12px;
+  text-align: center;
+}
+.site-footer a { color: var(--text-dim); text-decoration: none; }
+.site-footer a:hover { color: var(--text); }
+
+@media (max-width: 520px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .card-keyword { font-size: 40px; }
+  .card-keyword.short { font-size: 52px; }
+  .card-keyword.long { font-size: 30px; }
+}
+@media (max-width: 360px) {
+  .modal-card,
+  .modal-meta-panel { width: 100%; }
+  .modal-card { height: auto; aspect-ratio: 1 / 1; }
+}

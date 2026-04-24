@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About · 차즘 보물찾기 힌트 모음</title>
+  <link rel="preconnect" href="https://static.chazm.co.kr" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .prose { max-width: 680px; margin: 0 auto; font-size: 15px; line-height: 1.7; color: var(--text); }
+    .prose h2 { margin: 32px 0 10px; font-size: 18px; letter-spacing: -0.01em; }
+    .prose p, .prose li { color: var(--text-dim); }
+    .prose a { color: var(--accent); }
+    .prose ul { padding-left: 20px; }
+    .prose hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>차즘 보물찾기 힌트 모음</h1>
+      <p>&quot;숨겨진 차키를 찾아라&quot; 힌트 50개를 한눈에 · 비공식 큐레이션</p>
+      <nav>
+        <a href="index.html">힌트</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="prose">
+      <h2>왜 만들었나</h2>
+      <p>
+        차즘의 &quot;숨겨진 차키를 찾아라&quot; 이벤트 힌트를 한 화면에 정리해 보기 쉽게 만든 비공식 큐레이션 페이지입니다.
+        공식 채팅방에서는 힌트가 빠르게 흘러가기 때문에, 뒤늦게 합류했거나 흐름을 놓친 사람이 전체를 한눈에 훑어볼 수 있도록 카드 뷰로 정제했습니다.
+      </p>
+
+      <h2>운영 방침</h2>
+      <ul>
+        <li>공식 채팅방에 공개된 힌트만 수록 · 사전 유출은 다루지 않음</li>
+        <li>추정 위치는 커뮤니티 공감대가 있을 때만 기재</li>
+        <li>이미지 저작권 확인 전까지 그림카드 업로드는 보류</li>
+        <li>업데이트는 수동 · 하루 1~2회 반영</li>
+      </ul>
+
+      <h2>기술 스택</h2>
+      <ul>
+        <li>정적 HTML + Alpine.js (가벼운 반응형 UI)</li>
+        <li>단일 <code>hints.json</code> 데이터 파일 (GitHub repo 관리)</li>
+        <li>Cloudflare Pages 배포 · CDN 엣지 캐시</li>
+        <li>운영 비용 0원 · 트래픽 스파이크 대응</li>
+      </ul>
+
+      <h2>공식 링크</h2>
+      <ul>
+        <li><a href="https://chazm.co.kr/treasure" target="_blank" rel="noopener">차즘 공식 이벤트 페이지</a></li>
+      </ul>
+
+      <hr />
+
+      <h2>만든 사람</h2>
+      <p>
+        비공식 팬 큐레이션입니다. 차즘과 공식적으로 관련이 없습니다.
+        <br />
+        문의/제보: GitHub · LinkedIn (이메일 비공개)
+      </p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>Made with ☕ · 비공식 팬 큐레이션 · <a href="index.html">힌트 보기</a></div>
+    </div>
+  </footer>
+</body>
+</html>

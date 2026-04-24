@@ -1,0 +1,16 @@
+# OMC (Claude Code) working state
+.omc/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDE
+.vscode/
+.idea/
+*.swp
+
+# Node / Wrangler (if used)
+node_modules/
+.wrangler/
+.dev.vars
