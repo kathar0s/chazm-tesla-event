@@ -91,10 +91,7 @@
                 <div class="card-header">
                   <span class="num" x-text="hintLabel(hint)"></span>
                   <template x-if="hint.keywords.length > 1 && posIdx === 0">
-                    <span class="card-count">
-                      <span class="card-count-swipe" aria-hidden="true">↔</span>
-                      <span x-text="`${getIndex(hint) + 1} / ${hint.keywords.length}`"></span>
-                    </span>
+                    <span class="card-count" x-text="`${getIndex(hint) + 1} / ${hint.keywords.length}`"></span>
                   </template>
                 </div>
                 <div class="card-body">
