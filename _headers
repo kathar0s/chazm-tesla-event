@@ -15,8 +15,8 @@
 /hints.json
   Cache-Control: public, max-age=60, s-maxage=60
 
-# Long cache for static assets (CSS/JS) — bust by filename/query if needed
+# Short cache for CSS/JS during the 6-day event — updates propagate fast
 /*.css
-  Cache-Control: public, max-age=3600, s-maxage=86400
+  Cache-Control: public, max-age=60, s-maxage=60
 /*.js
-  Cache-Control: public, max-age=3600, s-maxage=86400
+  Cache-Control: public, max-age=60, s-maxage=60
