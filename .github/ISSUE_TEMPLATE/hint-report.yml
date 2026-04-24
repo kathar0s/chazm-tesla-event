@@ -1,0 +1,62 @@
+name: 힌트 제보
+description: 새로 공개된 힌트 / 누락된 키워드 / 오탈자 제보
+title: "[힌트] No. — "
+labels: ["힌트제보"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        차즘 보물찾기 힌트 큐레이션 페이지에 반영될 정보 제보 양식입니다.
+        **공식 채팅방에 이미 공개된 정보**만 제보해 주세요. 사전 유출은 반영하지 않습니다.
+
+  - type: input
+    id: hint-number
+    attributes:
+      label: 힌트 번호
+      description: 예) 7, 12, 23
+      placeholder: "예: 7"
+    validations:
+      required: true
+
+  - type: input
+    id: keywords
+    attributes:
+      label: 키워드
+      description: 키워드가 여러 개면 쉼표로 구분 (예 · 서약, 요리)
+      placeholder: "예: 와인"
+    validations:
+      required: true
+
+  - type: input
+    id: revealed-at
+    attributes:
+      label: 공개 시각 (선택)
+      description: 공식 채팅방에서 공개된 대략적인 시각 · YYYY-MM-DD HH:MM 형식
+      placeholder: "예: 2026-04-25 20:30"
+
+  - type: textarea
+    id: source
+    attributes:
+      label: 근거 / 출처
+      description: 채팅방 캡처, 공식 페이지 URL, 시간대 등 참고 자료
+      placeholder: |
+        - 공식 채팅방 공개 시각
+        - 참고 이미지/링크
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 메모 (선택)
+      description: 해석, 관련 단서, 참고사항 등
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: 확인사항
+      options:
+        - label: 공식 채팅방에 **이미 공개된** 힌트입니다 (사전 유출 아님)
+          required: true
+        - label: 기존 이슈/페이지에 동일한 제보가 없음을 확인했습니다
+          required: true

@@ -99,7 +99,88 @@ a { color: inherit; }
 }
 .site-header nav a:hover { color: var(--text); border-color: var(--text-dim); }
 
-/* Filter bar */
+/* Search bar */
+.search-bar {
+  position: relative;
+  margin-bottom: 22px;
+}
+.search-bar input[type="search"] {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  padding: 12px 40px 12px 16px;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  user-select: text;
+  -webkit-user-select: text;
+  caret-color: var(--text);
+  appearance: none;
+  -webkit-appearance: none;
+}
+.search-bar input[type="search"]::placeholder { color: var(--text-dim); }
+.search-bar input[type="search"]::-webkit-search-cancel-button { display: none; }
+.search-bar input[type="search"]:focus {
+  border-color: var(--text-dim);
+  background: var(--surface-2);
+}
+.search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: var(--border);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-clear:hover { background: var(--text-dim); color: var(--bg); }
+
+/* Empty-result CTA */
+.empty-state {
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 36px 24px;
+  text-align: center;
+  margin-bottom: 22px;
+}
+.empty-state .empty-title {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+}
+.empty-state .empty-sub {
+  margin: 0 0 18px;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+.empty-cta {
+  display: inline-block;
+  padding: 10px 18px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.empty-cta:hover { transform: translateY(-1px); }
+
+/* Filter bar (legacy, unused) */
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -131,9 +212,31 @@ a { color: inherit; }
   gap: 14px;
 }
 
+/* Card slot — holds one or more physically stacked .card elements */
+.card-slot {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+.card-slot > .card {
+  position: absolute;
+  inset: 0;
+}
+.card-slot.has-stack > .card[data-pos="1"] {
+  transform: translate(5px, 6px) rotate(1.8deg);
+  opacity: 0.92;
+}
+.card-slot.has-stack > .card[data-pos="2"] {
+  transform: translate(-4px, 5px) rotate(-1.5deg);
+  opacity: 0.84;
+}
+.card-slot > .card[data-pos="0"] { z-index: 3; }
+.card-slot > .card[data-pos="1"] { z-index: 2; }
+.card-slot > .card[data-pos="2"] { z-index: 1; }
+
 /* Card */
 .card {
-  aspect-ratio: 3 / 4;
   background: var(--card-bg);
   color: var(--card-ink);
   border-radius: var(--radius);
@@ -146,8 +249,11 @@ a { color: inherit; }
   transition: transform 0.18s ease, box-shadow 0.18s ease;
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
-.card:hover {
+.card-slot:not(.has-stack):hover > .card {
   transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.55);
+}
+.card-slot.has-stack:hover > .card[data-pos="0"] {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.55);
 }
 .card-header {
@@ -162,11 +268,20 @@ a { color: inherit; }
   gap: 8px;
 }
 .card-header .num { font-weight: 500; }
+.card-header .card-count {
+  font-size: 11px;
+  color: #8c877f;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 7px;
+  border-radius: 999px;
+}
 .card-body {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   padding: 8px 10px;
   text-align: center;
   min-height: 0;
@@ -182,6 +297,9 @@ a { color: inherit; }
 }
 .card-keyword.short { font-size: 72px; }
 .card-keyword.long { font-size: 40px; }
+.card-keyword.multi { font-size: 44px; }
+.card-keyword.multi.long { font-size: 32px; }
+
 
 /* Badges overlay */
 .badge-row {
@@ -234,9 +352,7 @@ a { color: inherit; }
   justify-content: center;
   padding: 20px;
   z-index: 50;
-  animation: fade 0.18s ease;
 }
-@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 .modal {
   width: 100%;
   max-width: 306px;
@@ -259,6 +375,29 @@ a { color: inherit; }
   flex-direction: column;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.06);
+  will-change: transform, opacity;
+}
+.modal-meta-panel {
+  will-change: transform, opacity;
+}
+
+/* View Transitions — morph the same card visual between grid and modal */
+@media (prefers-reduced-motion: no-preference) {
+  /* Backdrop (root) sits above all non-selected card groups so unselected cards dim under it */
+  ::view-transition-group(root) { z-index: 10; }
+  ::view-transition-group(*) {
+    animation-duration: 520ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+  }
+  /* Root snapshot swap is instant — no fade — so non-selected cards stay stable
+     while only the named card groups animate. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+  ::view-transition-old(root) { opacity: 0; }
+  ::view-transition-new(root) { opacity: 1; }
 }
 .modal-card-header {
   padding: 14px 18px 12px;

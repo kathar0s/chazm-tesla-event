@@ -20,7 +20,8 @@
         <p>&quot;숨겨진 차키를 찾아라&quot; 힌트를 한눈에 · 비공식 큐레이션</p>
         <div class="meta">
           2026.04.24 ~ 04.29 ·
-          <a :href="data.event?.official_url || '#'" target="_blank" rel="noopener">공식 이벤트 페이지 ↗</a>
+          <a href="https://chazm.co.kr/treasure" target="_blank" rel="noopener">공식 이벤트 페이지 ↗</a> ·
+          <a href="https://open.kakao.com/o/p8FeFVri" target="_blank" rel="noopener">오픈 채팅방 ↗</a>
         </div>
         <nav>
           <a href="index.html">힌트</a>
@@ -30,15 +31,69 @@
     </header>
 
     <main class="container">
-      <div class="grid">
-        <template x-for="hint in sortedHints" :key="hintKey(hint)">
-          <div class="card" @click="openHint(hint)">
-            <div class="card-header">
-              <span class="num" x-text="hintLabel(hint)"></span>
-            </div>
-            <div class="card-body">
-              <div class="card-keyword" :class="keywordSizeClass(hint.keyword)" x-text="hint.keyword"></div>
-            </div>
+      <div class="search-bar">
+        <input
+          type="search"
+          x-model.debounce.300ms="query"
+          placeholder="키워드로 검색 (예 · 비밀번호)"
+          aria-label="힌트 키워드 검색"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button
+          class="search-clear"
+          x-show="query"
+          @click="query = ''"
+          aria-label="검색어 지우기"
+          type="button"
+        >×</button>
+      </div>
+
+      <div class="empty-state" x-show="query && filteredHints.length === 0">
+        <p class="empty-title">
+          &quot;<span x-text="query"></span>&quot; 관련 힌트를 찾지 못했습니다.
+        </p>
+        <p class="empty-sub">
+          공식 채팅방에 공개된 새 힌트인가요? GitHub에 제보해 주시면 반영됩니다.
+        </p>
+        <a
+          class="empty-cta"
+          :href="reportUrlWithQuery"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub 이슈로 제보하기 ↗
+        </a>
+      </div>
+
+      <div class="grid" x-show="filteredHints.length > 0">
+        <template x-for="hint in filteredHints" :key="hintKey(hint)">
+          <div
+            class="card-slot"
+            :class="{ 'has-stack': hint.keywords.length > 1 }"
+            @click="onCardClick($event, hint)"
+            @pointerdown="onPointerDown($event, hint)"
+            @pointermove="onPointerMove($event, hint)"
+            @pointerup="onPointerUp($event, hint)"
+            @pointercancel="onPointerCancel($event, hint)"
+          >
+            <template x-for="(kw, posIdx) in orderedKeywords(hint)" :key="posIdx">
+              <div
+                class="card"
+                :data-pos="posIdx"
+                :style="cardStyle(hint, posIdx)"
+              >
+                <div class="card-header">
+                  <span class="num" x-text="hintLabel(hint)"></span>
+                  <template x-if="hint.keywords.length > 1 && posIdx === 0">
+                    <span class="card-count" x-text="`${getIndex(hint) + 1} / ${hint.keywords.length}`"></span>
+                  </template>
+                </div>
+                <div class="card-body">
+                  <div class="card-keyword" :class="keywordSizeClass(kw)" x-text="kw"></div>
+                </div>
+              </div>
+            </template>
           </div>
         </template>
       </div>
@@ -46,15 +101,19 @@
       <template x-if="selectedHint">
         <div class="modal-backdrop" @click.self="closeHint()" @keydown.escape.window="closeHint()">
           <div class="modal" role="dialog" aria-modal="true">
-            <div class="modal-card">
-              <div class="modal-card-header">
-                <span x-text="hintLabel(selectedHint)"></span>
-                <button class="modal-close" @click="closeHint()" aria-label="닫기">×</button>
+            <template x-for="(kw, idx) in orderedKeywords(selectedHint)" :key="idx">
+              <div class="modal-card" :style="{ viewTransitionName: 'hint-' + selectedHint.number + '-p' + idx }">
+                <div class="modal-card-header">
+                  <span x-text="modalCardLabel(selectedHint, idx)"></span>
+                  <template x-if="idx === 0">
+                    <button class="modal-close" @click="closeHint()" aria-label="닫기">×</button>
+                  </template>
+                </div>
+                <div class="modal-card-body">
+                  <div class="modal-keyword" :class="{ long: [...kw].length > 3 }" x-text="kw"></div>
+                </div>
               </div>
-              <div class="modal-card-body">
-                <div class="modal-keyword" :class="{ long: [...selectedHint.keyword].length > 3 }" x-text="selectedHint.keyword"></div>
-              </div>
-            </div>
+            </template>
             <template x-if="selectedHint.notes || selectedHint.location || groupName(selectedHint.group_id)">
               <div class="modal-meta-panel">
                 <template x-if="selectedHint.location">
