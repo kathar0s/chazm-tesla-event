@@ -8,6 +8,7 @@
   <meta property="og:title" content="차즘 보물찾기 힌트 모음" />
   <meta property="og:description" content="숨겨진 차키를 찾아라 힌트 카드 뷰" />
   <meta property="og:type" content="website" />
+  <meta name="build-time" content="__BUILD_TIME__" />
   <link rel="preconnect" href="https://static.chazm.co.kr" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="styles.css?v=__CACHE_BUST__" />
@@ -153,7 +154,7 @@
           <a href="about.html">About</a> ·
           <a href="https://github.com/kathar0s/chazm-tesla-event" target="_blank" rel="noopener">GitHub</a>
         </div>
-        <div style="margin-top:6px" x-text="`마지막 업데이트: ${formatDate(data.updated_at) || '-'}`"></div>
+        <div style="margin-top:6px" x-text="`마지막 업데이트: ${formatDate(buildTime) || '-'}`"></div>
       </div>
     </footer>
   </div>

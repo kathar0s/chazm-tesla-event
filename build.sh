@@ -19,11 +19,15 @@ fi
 # take first 7 chars (POSIX: use `expr substr`, or `cut`)
 VERSION=$(printf %s "$VERSION" | cut -c1-7)
 
+# ISO 8601 timestamp of this build (UTC) — safe to parse with new Date(...)
+BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
+
 echo "Cache-bust version: ${VERSION}"
+echo "Build time: ${BUILD_TIME}"
 
 for f in index.html about.html; do
   if [ -f "$f" ]; then
-    sed -i.bak "s/__CACHE_BUST__/${VERSION}/g" "$f"
+    sed -i.bak -e "s/__CACHE_BUST__/${VERSION}/g" -e "s/__BUILD_TIME__/${BUILD_TIME}/g" "$f"
     rm -f "${f}.bak"
     echo "  patched ${f}"
   fi

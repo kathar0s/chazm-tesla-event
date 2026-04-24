@@ -11,6 +11,7 @@ function hintApp() {
     dragState: null,
     swipeThreshold: 50,
     showSwipeHint: false,
+    buildTime: null,
 
     async init() {
       try {
@@ -29,6 +30,9 @@ function hintApp() {
           this.showSwipeHint = true;
         }
       } catch (_) {}
+      const metaBuild = document.querySelector('meta[name="build-time"]')?.content;
+      this.buildTime =
+        metaBuild && metaBuild !== '__BUILD_TIME__' ? metaBuild : this.data.updated_at;
     },
 
     dismissSwipeHint() {
