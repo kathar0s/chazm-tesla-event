@@ -31,6 +31,11 @@
     </header>
 
     <main class="container">
+      <div class="swipe-hint-banner" x-show="showSwipeHint" x-cloak>
+        <span>겹쳐진 카드는 좌우로 <strong>스와이프</strong> 해서 넘겨보세요</span>
+        <button class="swipe-hint-close" @click="dismissSwipeHint()" aria-label="안내 닫기" type="button">×</button>
+      </div>
+
       <div class="search-bar">
         <input
           type="search"
@@ -70,7 +75,7 @@
         <template x-for="hint in filteredHints" :key="hintKey(hint)">
           <div
             class="card-slot"
-            :class="{ 'has-stack': hint.keywords.length > 1 }"
+            :class="{ 'has-stack': hint.keywords.length > 1, 'hint-wiggle': showSwipeHint && hint.keywords.length > 1 }"
             @click="onCardClick($event, hint)"
             @pointerdown="onPointerDown($event, hint)"
             @pointermove="onPointerMove($event, hint)"
@@ -86,7 +91,10 @@
                 <div class="card-header">
                   <span class="num" x-text="hintLabel(hint)"></span>
                   <template x-if="hint.keywords.length > 1 && posIdx === 0">
-                    <span class="card-count" x-text="`${getIndex(hint) + 1} / ${hint.keywords.length}`"></span>
+                    <span class="card-count">
+                      <span class="card-count-swipe" aria-hidden="true">↔</span>
+                      <span x-text="`${getIndex(hint) + 1} / ${hint.keywords.length}`"></span>
+                    </span>
                   </template>
                 </div>
                 <div class="card-body">

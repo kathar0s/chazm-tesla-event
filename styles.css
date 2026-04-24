@@ -99,6 +99,32 @@ a { color: inherit; }
 }
 .site-header nav a:hover { color: var(--text); border-color: var(--text-dim); }
 
+/* Swipe hint banner */
+.swipe-hint-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(90deg, rgba(201, 180, 122, 0.18), rgba(201, 180, 122, 0.08));
+  border: 1px solid rgba(201, 180, 122, 0.35);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+.swipe-hint-banner strong { color: var(--accent); font-weight: 600; }
+.swipe-hint-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.swipe-hint-close:hover { color: var(--text); }
+
 /* Search bar */
 .search-bar {
   position: relative;
@@ -274,6 +300,39 @@ a { color: inherit; }
   background: rgba(0, 0, 0, 0.05);
   padding: 2px 7px;
   border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.card-count-swipe {
+  font-size: 12px;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+/* One-time wiggle on stacked cards to hint swipeability */
+@keyframes swipe-hint-wiggle {
+  0%   { transform: translate(5px, 6px) rotate(1.8deg); }
+  20%  { transform: translate(16px, 6px) rotate(5deg); }
+  40%  { transform: translate(5px, 6px) rotate(1.8deg); }
+  60%  { transform: translate(-6px, 6px) rotate(-2deg); }
+  80%  { transform: translate(5px, 6px) rotate(1.8deg); }
+  100% { transform: translate(5px, 6px) rotate(1.8deg); }
+}
+.card-slot.hint-wiggle.has-stack > .card[data-pos="1"] {
+  animation: swipe-hint-wiggle 1.4s ease-in-out 0.5s 1;
+}
+@keyframes swipe-hint-wiggle-2 {
+  0%   { transform: translate(-4px, 5px) rotate(-1.5deg); }
+  20%  { transform: translate(-14px, 5px) rotate(-4deg); }
+  40%  { transform: translate(-4px, 5px) rotate(-1.5deg); }
+  60%  { transform: translate(6px, 5px) rotate(2deg); }
+  80%  { transform: translate(-4px, 5px) rotate(-1.5deg); }
+  100% { transform: translate(-4px, 5px) rotate(-1.5deg); }
+}
+.card-slot.hint-wiggle.has-stack > .card[data-pos="2"] {
+  animation: swipe-hint-wiggle-2 1.4s ease-in-out 0.6s 1;
 }
 .card-body {
   flex: 1;

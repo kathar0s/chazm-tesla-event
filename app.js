@@ -10,6 +10,7 @@ function hintApp() {
     hintIndex: {},
     dragState: null,
     swipeThreshold: 50,
+    showSwipeHint: false,
 
     async init() {
       try {
@@ -20,6 +21,19 @@ function hintApp() {
         console.error(err);
         this.data = { event: null, hints: [], groups: [], updated_at: null };
       }
+      try {
+        const hasStacks = (this.data.hints || []).some(
+          (h) => (h.keywords || []).length > 1
+        );
+        if (hasStacks && localStorage.getItem('swipe-hint-dismissed') !== '1') {
+          this.showSwipeHint = true;
+        }
+      } catch (_) {}
+    },
+
+    dismissSwipeHint() {
+      this.showSwipeHint = false;
+      try { localStorage.setItem('swipe-hint-dismissed', '1'); } catch (_) {}
     },
 
     get sortedHints() {
