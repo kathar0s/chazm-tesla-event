@@ -252,7 +252,7 @@ function hintApp() {
       }
       const rules = hint.keywords.map(
         (_, i) =>
-          `::view-transition-group(hint-${hint.number}-p${i}) { z-index: ${310 - i} !important; }`
+          `::view-transition-group(hint-${hint.category}-${hint.number}-p${i}) { z-index: ${310 - i} !important; }`
       );
       tag.textContent = rules.join('\n');
     },
