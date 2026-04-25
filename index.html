@@ -92,7 +92,7 @@
         <template x-for="hint in filteredHints" :key="hintKey(hint)">
           <div
             class="card-slot"
-            :class="['cat-' + hint.category, { 'has-stack': hint.keywords.length > 1, 'hint-wiggle': showSwipeHint && hint.keywords.length > 1 }]"
+            :class="{ ['cat-' + hint.category]: true, 'has-stack': hint.keywords.length > 1, 'hint-wiggle': showSwipeHint && hint.keywords.length > 1 }"
             @click="onCardClick($event, hint)"
             @pointerdown="onPointerDown($event, hint)"
             @pointermove="onPointerMove($event, hint)"
