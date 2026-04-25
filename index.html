@@ -102,7 +102,7 @@
             <template x-for="(kw, posIdx) in orderedKeywords(hint)" :key="posIdx">
               <div
                 class="card"
-                :data-pos="posIdx"
+                :data-pos="String(posIdx)"
                 :style="cardStyle(hint, posIdx)"
               >
                 <div class="card-header">
