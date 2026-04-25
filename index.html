@@ -32,7 +32,23 @@
     </header>
 
     <main class="container">
-      <div class="swipe-hint-banner" x-show="showSwipeHint" x-cloak>
+      <div class="category-tabs" role="tablist">
+        <template x-for="cat in categories" :key="cat.id">
+          <button
+            class="cat-tab"
+            :class="['cat-tab-' + cat.id, { active: activeCategory === cat.id }]"
+            @click="activeCategory = cat.id"
+            :aria-selected="activeCategory === cat.id"
+            role="tab"
+            type="button"
+          >
+            <span x-text="cat.label"></span>
+            <span class="cat-tab-count" x-text="`(${categoryCounts[cat.id] || 0})`"></span>
+          </button>
+        </template>
+      </div>
+
+      <div class="swipe-hint-banner" x-show="showSwipeHint && categoryHints.some(h => h.keywords.length > 1)" x-cloak>
         <span>겹쳐진 카드는 좌우로 <strong>스와이프</strong> 해서 넘겨보세요</span>
         <button class="swipe-hint-close" @click="dismissSwipeHint()" aria-label="안내 닫기" type="button">×</button>
       </div>
@@ -76,7 +92,7 @@
         <template x-for="hint in filteredHints" :key="hintKey(hint)">
           <div
             class="card-slot"
-            :class="{ 'has-stack': hint.keywords.length > 1, 'hint-wiggle': showSwipeHint && hint.keywords.length > 1 }"
+            :class="['cat-' + hint.category, { 'has-stack': hint.keywords.length > 1, 'hint-wiggle': showSwipeHint && hint.keywords.length > 1 }]"
             @click="onCardClick($event, hint)"
             @pointerdown="onPointerDown($event, hint)"
             @pointermove="onPointerMove($event, hint)"
@@ -108,7 +124,7 @@
         <div class="modal-backdrop" @click.self="closeHint()" @keydown.escape.window="closeHint()">
           <div class="modal" role="dialog" aria-modal="true">
             <template x-for="(kw, idx) in orderedKeywords(selectedHint)" :key="idx">
-              <div class="modal-card" :style="{ viewTransitionName: 'hint-' + selectedHint.number + '-p' + idx }">
+              <div class="modal-card" :class="'cat-' + selectedHint.category" :style="{ viewTransitionName: 'hint-' + selectedHint.category + '-' + selectedHint.number + '-p' + idx }">
                 <div class="modal-card-header">
                   <span x-text="modalCardLabel(selectedHint, idx)"></span>
                   <template x-if="idx === 0">

@@ -5,6 +5,7 @@ function hintApp() {
     sourceEl: null,
     closing: false,
     query: '',
+    activeCategory: 'day1',
     reportUrl: 'https://github.com/kathar0s/chazm-tesla-event/issues/new?template=hint-report.yml',
 
     hintIndex: {},
@@ -41,15 +42,36 @@ function hintApp() {
     },
 
     get sortedHints() {
-      return [...(this.data.hints || [])].sort((a, b) => a.number - b.number);
+      return [...(this.data.hints || [])].sort((a, b) => {
+        if ((a.day || 0) !== (b.day || 0)) return (a.day || 0) - (b.day || 0);
+        return a.number - b.number;
+      });
+    },
+
+    get categories() {
+      return this.data.categories || [];
+    },
+
+    category(id) {
+      return this.categories.find((c) => c.id === id) || null;
+    },
+
+    get categoryHints() {
+      return this.sortedHints.filter((h) => h.category === this.activeCategory);
     },
 
     get filteredHints() {
       const q = this.query.trim().toLowerCase();
-      if (!q) return this.sortedHints;
-      return this.sortedHints.filter((h) =>
+      if (!q) return this.categoryHints;
+      return this.categoryHints.filter((h) =>
         (h.keywords || []).some((kw) => kw.toLowerCase().includes(q))
       );
+    },
+
+    get categoryCounts() {
+      const counts = {};
+      for (const h of this.sortedHints) counts[h.category] = (counts[h.category] || 0) + 1;
+      return counts;
     },
 
     get reportUrlWithQuery() {
@@ -63,8 +85,9 @@ function hintApp() {
     },
 
     hintLabel(hint) {
-      const base = `힌트 No.${hint.number}`;
-      return hint.day ? `${hint.day}일차 ${base}` : base;
+      const cat = this.category(hint.category);
+      const header = cat ? cat.header : '힌트';
+      return `${header} No.${hint.number}`;
     },
 
     modalCardLabel(hint, idx) {
@@ -204,7 +227,7 @@ function hintApp() {
       if (!this.sourceEl) return [];
       const cards = Array.from(this.sourceEl.querySelectorAll('.card'));
       cards.forEach((card, i) => {
-        card.style.viewTransitionName = `hint-${hint.number}-p${i}`;
+        card.style.viewTransitionName = `hint-${hint.category}-${hint.number}-p${i}`;
       });
       return cards;
     },
@@ -319,7 +342,7 @@ function hintApp() {
           if (slot) {
             const cards = Array.from(slot.querySelectorAll('.card'));
             cards.forEach((card, i) => {
-              card.style.viewTransitionName = `hint-${hintBeingClosed.number}-p${i}`;
+              card.style.viewTransitionName = `hint-${hintBeingClosed.category}-${hintBeingClosed.number}-p${i}`;
             });
           }
           if (resolve) resolve();

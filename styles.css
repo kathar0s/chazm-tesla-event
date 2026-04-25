@@ -99,6 +99,44 @@ a { color: inherit; }
 }
 .site-header nav a:hover { color: var(--text); border-color: var(--text-dim); }
 
+/* Category tabs */
+.category-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.cat-tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.cat-tab .cat-tab-count { font-size: 11px; opacity: 0.6; }
+.cat-tab:hover { color: var(--text); }
+.cat-tab.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+.cat-tab.active.cat-tab-day2 { background: #ddc6f8; color: #1a1424; border-color: #ddc6f8; }
+.cat-tab.active.cat-tab-estimate { background: #fbb674; color: #2a1c08; border-color: #fbb674; }
+
+/* Category color variants — applied to .card-slot and .modal-card */
+.cat-day2 > .card,
+.modal-card.cat-day2 { background: #ddc6f8; }
+.cat-estimate > .card,
+.modal-card.cat-estimate { background: #fbb674; }
+
 /* Swipe hint banner */
 .swipe-hint-banner {
   display: flex;
