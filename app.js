@@ -63,7 +63,8 @@ function hintApp() {
     get filteredHints() {
       const q = this.query.trim().toLowerCase();
       if (!q) return this.categoryHints;
-      return this.categoryHints.filter((h) =>
+      // Search is global across all categories
+      return this.sortedHints.filter((h) =>
         (h.keywords || []).some((kw) => kw.toLowerCase().includes(q))
       );
     },
