@@ -11,6 +11,9 @@
   <meta name="build-time" content="__BUILD_TIME__" />
   <link rel="preconnect" href="https://static.chazm.co.kr" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://cdn.chazm.co.kr" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous"
+        href="https://static.chazm.co.kr/chazm-web/5.47.1/_next/static/media/NyjDasanB-s.p.0inf86j4oyk5u.woff2" />
   <link rel="stylesheet" href="styles.css?v=__CACHE_BUST__" />
 </head>
 <body>
@@ -25,8 +28,8 @@
           <a href="https://open.kakao.com/o/p8FeFVri" target="_blank" rel="noopener">오픈 채팅방 ↗</a>
         </div>
         <nav>
-          <a href="index.html">힌트</a>
-          <a href="about.html">About</a>
+          <a href="/">힌트</a>
+          <a href="/about">About</a>
         </nav>
       </div>
     </header>
@@ -36,7 +39,7 @@
         <template x-for="cat in categories" :key="cat.id">
           <button
             class="cat-tab"
-            :class="['cat-tab-' + cat.id, { active: activeCategory === cat.id }]"
+            :class="{ ['cat-tab-' + cat.id]: true, active: activeCategory === cat.id }"
             @click="activeCategory = cat.id"
             :aria-selected="activeCategory === cat.id"
             role="tab"
@@ -109,7 +112,7 @@
                 </div>
               </div>
             </template>
-            <template x-if="!hint.image">
+            <template x-if="!hint.image && hint.keywords && hint.keywords.length > 0">
               <template x-for="(kw, posIdx) in orderedKeywords(hint)" :key="posIdx">
                 <div
                   class="card"
@@ -124,9 +127,23 @@
                   </div>
                   <div class="card-body">
                     <div class="card-keyword" :class="keywordSizeClass(kw)" x-text="kw"></div>
+                    <template x-if="isImagePending(hint) && posIdx === 0">
+                      <div class="card-pending-tag">이미지 제보 중</div>
+                    </template>
                   </div>
                 </div>
               </template>
+            </template>
+            <template x-if="isPlaceholder(hint)">
+              <div class="card" data-pos="0" :style="cardStyle(hint, 0)">
+                <div class="card-header">
+                  <span class="num" x-text="hintLabel(hint)"></span>
+                </div>
+                <div class="card-body card-body-placeholder">
+                  <div class="placeholder-icon" aria-hidden="true">?</div>
+                  <div class="placeholder-msg">제보 모집 중</div>
+                </div>
+              </div>
             </template>
           </div>
         </template>
@@ -146,7 +163,22 @@
                 </div>
               </div>
             </template>
-            <template x-if="!selectedHint.image">
+            <template x-if="isPlaceholder(selectedHint)">
+              <div class="modal-card" :class="'cat-' + selectedHint.category" :style="{ viewTransitionName: 'hint-' + selectedHint.category + '-' + selectedHint.number + '-p0' }">
+                <div class="modal-card-header">
+                  <span x-text="hintLabel(selectedHint)"></span>
+                  <button class="modal-close" @click="closeHint()" aria-label="닫기">×</button>
+                </div>
+                <div class="modal-card-body modal-card-body-placeholder">
+                  <div class="placeholder-modal-icon" aria-hidden="true">?</div>
+                  <p class="placeholder-modal-msg">아직 이미지를 모집 중이에요.<br/>가지고 계신 분이 계시면 도와주세요!</p>
+                  <a class="placeholder-cta" :href="kakaoChatUrl" target="_blank" rel="noopener">
+                    이미지 제보 중 · 오픈카톡 ↗
+                  </a>
+                </div>
+              </div>
+            </template>
+            <template x-if="!selectedHint.image && !isPlaceholder(selectedHint)">
               <template x-for="(kw, idx) in orderedKeywords(selectedHint)" :key="idx">
                 <div class="modal-card" :class="'cat-' + selectedHint.category" :style="{ viewTransitionName: 'hint-' + selectedHint.category + '-' + selectedHint.number + '-p' + idx }">
                   <div class="modal-card-header">
@@ -157,6 +189,11 @@
                   </div>
                   <div class="modal-card-body">
                     <div class="modal-keyword" :class="{ long: [...kw].length > 3 }" x-text="kw"></div>
+                    <template x-if="isImagePending(selectedHint) && idx === 0">
+                      <a class="modal-pending-cta" :href="kakaoChatUrl" target="_blank" rel="noopener">
+                        이미지 제보 중 · 오픈카톡 ↗
+                      </a>
+                    </template>
                   </div>
                 </div>
               </template>
@@ -192,7 +229,7 @@
       <div class="container">
         <div>
           Made with ☕ · 비공식 팬 큐레이션 ·
-          <a href="about.html">About</a> ·
+          <a href="/about">About</a> ·
           <a href="https://github.com/kathar0s/chazm-tesla-event" target="_blank" rel="noopener">GitHub</a>
         </div>
         <div style="margin-top:6px" x-text="`마지막 업데이트: ${formatDate(buildTime) || '-'}`"></div>

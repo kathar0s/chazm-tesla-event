@@ -7,12 +7,17 @@ function hintApp() {
     query: '',
     activeCategory: 'day1',
     reportUrl: 'https://github.com/kathar0s/chazm-tesla-event/issues/new?template=hint-report.yml',
+    kakaoChatUrl: 'https://open.kakao.com/o/p8FeFVri',
 
     hintIndex: {},
     dragState: null,
     swipeThreshold: 50,
     showSwipeHint: false,
     buildTime: null,
+
+    _sorted: [],
+    _categoryHints: {},
+    _categoryCounts: {},
 
     async init() {
       try {
@@ -22,6 +27,17 @@ function hintApp() {
       } catch (err) {
         console.error(err);
         this.data = { event: null, hints: [], groups: [], updated_at: null };
+      }
+      // Precompute derived collections so per-render getters are O(1)
+      this._sorted = [...(this.data.hints || [])].sort((a, b) => {
+        if ((a.day || 0) !== (b.day || 0)) return (a.day || 0) - (b.day || 0);
+        return a.number - b.number;
+      });
+      this._categoryHints = {};
+      this._categoryCounts = {};
+      for (const h of this._sorted) {
+        (this._categoryHints[h.category] ||= []).push(h);
+        this._categoryCounts[h.category] = (this._categoryCounts[h.category] || 0) + 1;
       }
       try {
         const hasStacks = (this.data.hints || []).some(
@@ -42,10 +58,7 @@ function hintApp() {
     },
 
     get sortedHints() {
-      return [...(this.data.hints || [])].sort((a, b) => {
-        if ((a.day || 0) !== (b.day || 0)) return (a.day || 0) - (b.day || 0);
-        return a.number - b.number;
-      });
+      return this._sorted;
     },
 
     get categories() {
@@ -57,22 +70,20 @@ function hintApp() {
     },
 
     get categoryHints() {
-      return this.sortedHints.filter((h) => h.category === this.activeCategory);
+      return this._categoryHints[this.activeCategory] || [];
     },
 
     get filteredHints() {
       const q = this.query.trim().toLowerCase();
       if (!q) return this.categoryHints;
       // Search is global across all categories
-      return this.sortedHints.filter((h) =>
+      return this._sorted.filter((h) =>
         (h.keywords || []).some((kw) => kw.toLowerCase().includes(q))
       );
     },
 
     get categoryCounts() {
-      const counts = {};
-      for (const h of this.sortedHints) counts[h.category] = (counts[h.category] || 0) + 1;
-      return counts;
+      return this._categoryCounts;
     },
 
     get reportUrlWithQuery() {
@@ -122,8 +133,12 @@ function hintApp() {
       return `${yyyy}. ${mm}. ${dd} ${hh}:${min}`;
     },
 
+    hintIndexKey(hint) {
+      return `${hint.category}-${hint.number}`;
+    },
+
     getIndex(hint) {
-      return this.hintIndex[hint.number] || 0;
+      return this.hintIndex[this.hintIndexKey(hint)] || 0;
     },
 
     topKeyword(hint) {
@@ -132,8 +147,9 @@ function hintApp() {
 
     cycleKeyword(hint, step = 1) {
       const n = hint.keywords.length;
+      if (n <= 1) return;
       const cur = this.getIndex(hint);
-      this.hintIndex[hint.number] = (cur + step + n) % n;
+      this.hintIndex[this.hintIndexKey(hint)] = (cur + step + n) % n;
     },
 
     orderedKeywords(hint) {
@@ -218,6 +234,21 @@ function hintApp() {
       return { dx, dy, sx, sy };
     },
 
+    isPlaceholder(hint) {
+      return !hint.image && (!hint.keywords || hint.keywords.length === 0);
+    },
+
+    isImagePending(hint) {
+      return hint.category === 'day3' && !hint.image;
+    },
+
+    placeholderReportUrl(hint) {
+      const cat = this.category(hint.category);
+      const label = cat ? cat.label : '';
+      const title = `[제보] ${label} 힌트 No.${hint.number} 이미지`;
+      return `${this.reportUrl}&title=${encodeURIComponent(title)}`;
+    },
+
     cardStyle(hint) {
       return {
         visibility: this.selectedHint?.number === hint.number ? 'hidden' : '',
@@ -251,7 +282,7 @@ function hintApp() {
         tag.textContent = '';
         return;
       }
-      const count = hint.image ? 1 : hint.keywords.length;
+      const count = hint.image ? 1 : Math.max(1, hint.keywords?.length || 0);
       const rules = Array.from({ length: count }, (_, i) =>
         `::view-transition-group(hint-${hint.category}-${hint.number}-p${i}) { z-index: ${310 - i} !important; }`
       );
