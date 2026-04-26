@@ -251,9 +251,9 @@ function hintApp() {
         tag.textContent = '';
         return;
       }
-      const rules = hint.keywords.map(
-        (_, i) =>
-          `::view-transition-group(hint-${hint.category}-${hint.number}-p${i}) { z-index: ${310 - i} !important; }`
+      const count = hint.image ? 1 : hint.keywords.length;
+      const rules = Array.from({ length: count }, (_, i) =>
+        `::view-transition-group(hint-${hint.category}-${hint.number}-p${i}) { z-index: ${310 - i} !important; }`
       );
       tag.textContent = rules.join('\n');
     },
