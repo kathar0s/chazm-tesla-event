@@ -78,6 +78,6 @@
     { "day": 3, "category": "day3", "number": 4, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/845d008c679a46a485085423d694101a.jpg", "location": null, "group_id": null, "notes": null },
     { "day": 3, "category": "day3", "number": 5, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/118bf5b0e57f4b419694818459406538.jpg", "location": null, "group_id": null, "notes": null },
     { "day": 3, "category": "day3", "number": 6, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/5d3e96fadcf243938f7721b8d34b17bd.jpg", "location": null, "group_id": null, "notes": null },
-    { "day": 3, "category": "day3", "number": 7, "keywords": ["컨테이너"], "image": null, "location": null, "group_id": null, "notes": null }
+    { "day": 3, "category": "day3", "number": 7, "keywords": ["컨테이너"], "image": "https://cdn.chazm.co.kr/treasure/e6eec6840e4e40df938bda8f79d3b546.jpg", "location": null, "group_id": null, "notes": null }
   ]
 }
