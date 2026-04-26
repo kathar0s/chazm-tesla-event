@@ -129,11 +129,14 @@ a { color: inherit; }
   border-color: var(--text);
 }
 .cat-tab.active.cat-tab-day2 { background: #ddc6f8; color: #1a1424; border-color: #ddc6f8; }
+.cat-tab.active.cat-tab-day3 { background: #fcc5be; color: #2d1717; border-color: #fcc5be; }
 .cat-tab.active.cat-tab-estimate { background: #fbb674; color: #2a1c08; border-color: #fbb674; }
 
 /* Category color variants — applied to .card-slot and .modal-card */
 .cat-day2 > .card,
 .modal-card.cat-day2 { background: #ddc6f8; }
+.cat-day3 > .card,
+.modal-card.cat-day3 { background: #fcc5be; }
 .cat-estimate > .card,
 .modal-card.cat-estimate { background: #fbb674; }
 
@@ -403,6 +406,26 @@ a { color: inherit; }
 .card-keyword.long { font-size: 40px; }
 .card-keyword.multi { font-size: 44px; }
 .card-keyword.multi.long { font-size: 32px; }
+
+/* Image hint variants */
+.card-body-image { padding: 8px; }
+.card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.modal-card-body-image { padding: 14px; }
+.modal-image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
 
 
 /* Badges overlay */

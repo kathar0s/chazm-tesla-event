@@ -11,6 +11,7 @@
   "categories": [
     { "id": "day1",     "label": "1일차",   "header": "1일차 힌트",    "css_class": "cat-day1"     },
     { "id": "day2",     "label": "2일차",   "header": "2일차 힌트",    "css_class": "cat-day2"     },
+    { "id": "day3",     "label": "3일차",   "header": "3일차 힌트",    "css_class": "cat-day3"     },
     { "id": "estimate", "label": "견적받기", "header": "견적분석 힌트", "css_class": "cat-estimate" }
   ],
   "groups": [],
@@ -69,6 +70,10 @@
     { "day": 1, "category": "estimate", "number": 1, "keywords": ["인어공주"], "location": null, "group_id": null, "notes": null },
     { "day": 1, "category": "estimate", "number": 2, "keywords": ["샴페인"],   "location": null, "group_id": null, "notes": null },
 
-    { "day": 2, "category": "day2", "number": 1, "keywords": ["핑클"],         "location": null, "group_id": null, "notes": null }
+    { "day": 2, "category": "day2", "number": 1, "keywords": ["핑클"],         "location": null, "group_id": null, "notes": null },
+
+    { "day": 3, "category": "day3", "number": 3, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/b42b9de4ca60487285ee97047f980940.jpg", "location": null, "group_id": null, "notes": null },
+    { "day": 3, "category": "day3", "number": 4, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/845d008c679a46a485085423d694101a.jpg", "location": null, "group_id": null, "notes": null },
+    { "day": 3, "category": "day3", "number": 6, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/5d3e96fadcf243938f7721b8d34b17bd.jpg", "location": null, "group_id": null, "notes": null }
   ]
 }
