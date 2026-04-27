@@ -25,25 +25,45 @@
           <span class="collab-badge">차즘 X 김선태</span>
         </h1>
         <p>&quot;숨겨진 차키를 찾아라&quot; 힌트를 한눈에 · 비공식 큐레이션</p>
-        <div class="meta">
-          <span class="meta-row">
-            힌트 공개 <strong>04.24 ~ 04.29</strong> ·
-            차키 수색 <strong>~ 05.07</strong> ·
-            미발견 카드 일괄 공개 <strong>05.08</strong>
-          </span>
-          <span class="meta-row">
-            <a href="https://chazm.co.kr/treasure" target="_blank" rel="noopener">공식 이벤트 페이지 ↗</a> ·
-            <a href="https://open.kakao.com/o/p8FeFVri" target="_blank" rel="noopener">오픈 채팅방 ↗</a>
-          </span>
-        </div>
         <nav>
-          <a href="/">힌트</a>
-          <a href="/about">About</a>
+          <div class="nav-left">
+            <a href="/">힌트</a>
+            <a href="/about">About</a>
+          </div>
+          <div class="nav-right">
+            <a href="https://chazm.co.kr/treasure" target="_blank" rel="noopener">
+              <img class="nav-icon" src="https://www.google.com/s2/favicons?domain=chazm.co.kr&sz=32" alt="" />공식 이벤트 페이지 ↗
+            </a>
+            <a href="https://open.kakao.com/o/p8FeFVri" target="_blank" rel="noopener">
+              <img class="nav-icon" src="https://www.google.com/s2/favicons?domain=kakao.com&sz=32" alt="" />오픈 채팅방 ↗
+            </a>
+          </div>
         </nav>
       </div>
     </header>
 
     <main class="container">
+      <div class="event-dashboard" x-cloak>
+        <div class="event-days">
+          <template x-for="n in [1,2,3,4,5,6]" :key="n">
+            <div class="event-day" :class="'status-' + dayStatus(n)">
+              <div class="event-day-dot"></div>
+              <div class="event-day-label" x-text="n + '일차'"></div>
+              <div class="event-day-date" x-text="'4/' + (23 + n)"></div>
+            </div>
+          </template>
+          <div class="event-day event-day-card" :class="'status-' + cardRevealStatus()">
+            <div class="event-day-dot event-day-dot-card"></div>
+            <div class="event-day-label">카드 공개</div>
+            <div class="event-day-date">5/8</div>
+          </div>
+        </div>
+        <div class="event-countdown" x-show="countdown">
+          <span class="event-countdown-label" x-text="countdownLabel"></span>
+          <span class="event-countdown-timer" x-text="countdown"></span>
+        </div>
+      </div>
+
       <div class="category-tabs" role="tablist">
         <template x-for="cat in categories" :key="cat.id">
           <button
@@ -91,6 +111,11 @@
           type="button"
           x-text="copyState === 'copied' ? '복사됨!' : 'AI용 힌트 복사'"
         ></button>
+      </div>
+
+      <div class="empty-state" x-show="!query && categoryHints.length === 0" x-cloak>
+        <p class="empty-title">아직 공개되지 않은 힌트예요</p>
+        <p class="empty-sub">매일 18:00에 새 힌트가 공개됩니다</p>
       </div>
 
       <div class="empty-state" x-show="query && filteredHints.length === 0">

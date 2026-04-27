@@ -19,6 +19,9 @@ function hintApp() {
     _categoryHints: {},
     _categoryCounts: {},
     copyState: 'idle',
+    countdown: null,
+    countdownLabel: '',
+    _tick: 0,
 
     async init() {
       try {
@@ -51,6 +54,80 @@ function hintApp() {
       const metaBuild = document.querySelector('meta[name="build-time"]')?.content;
       this.buildTime =
         metaBuild && metaBuild !== '__BUILD_TIME__' ? metaBuild : this.data.updated_at;
+
+      this.startCountdown();
+    },
+
+    startCountdown() {
+      // 힌트 공개 종료: 2026-04-29 18:00 KST = 09:00 UTC
+      const LAST_HINT_UTC = Date.UTC(2026, 3, 29, 9, 0, 0);
+      // 미발견 카드 일괄 공개: 2026-05-08 00:00 KST = 2026-05-07 15:00 UTC
+      const CARD_REVEAL_UTC = Date.UTC(2026, 4, 7, 15, 0, 0);
+
+      const tick = () => {
+        this._tick++;
+        const now = Date.now();
+
+        if (now >= CARD_REVEAL_UTC) {
+          this.countdown = null;
+          this.countdownLabel = '';
+          return;
+        }
+
+        let target, label;
+
+        if (now < LAST_HINT_UTC) {
+          // 힌트 공개 기간: 다음 일차 공개까지
+          const d = new Date(now);
+          const todayRelease = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 9, 0, 0);
+          let next = now < todayRelease ? todayRelease : todayRelease + 86400000;
+          if (next > LAST_HINT_UTC) next = LAST_HINT_UTC;
+          target = next;
+          const kst = new Date(next + 9 * 3600000);
+          label = `${kst.getUTCMonth() + 1}월 ${kst.getUTCDate()}일 힌트 공개까지`;
+        } else {
+          // 차키 수색 기간: 카드 일괄 공개까지
+          target = CARD_REVEAL_UTC;
+          label = '미발견 카드 일괄 공개까지';
+        }
+
+        const diff = target - now;
+        const totalH = Math.floor(diff / 3600000);
+        const days = Math.floor(totalH / 24);
+        const h = totalH % 24;
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        const hh = String(h).padStart(2, '0');
+        const mm = String(m).padStart(2, '0');
+        const ss = String(s).padStart(2, '0');
+        this.countdown = days > 0 ? `${days}일 ${hh}:${mm}:${ss}` : `${hh}:${mm}:${ss}`;
+        this.countdownLabel = label;
+      };
+
+      tick();
+      setInterval(tick, 1000);
+    },
+
+    cardRevealStatus() {
+      void this._tick;
+      const now = Date.now();
+      const CARD_REVEAL_UTC = Date.UTC(2026, 4, 7, 15, 0, 0);
+      if (now >= CARD_REVEAL_UTC) return 'released';
+      const LAST_HINT_UTC = Date.UTC(2026, 3, 29, 9, 0, 0);
+      return now >= LAST_HINT_UTC ? 'active' : 'upcoming';
+    },
+
+    dayStatus(n) {
+      void this._tick;
+      // n일차 공개 시각: 2026-04-(23+n) 18:00 KST = 09:00 UTC
+      const releaseUTC = Date.UTC(2026, 3, 23 + n, 9, 0, 0);
+      const now = Date.now();
+      if (now >= releaseUTC) return 'released';
+      // 다음 카운트다운 대상이 이 날이면 active
+      const d = new Date(now);
+      const todayRelease = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), 9, 0, 0);
+      const next = now < todayRelease ? todayRelease : todayRelease + 86400000;
+      return next === releaseUTC ? 'active' : 'upcoming';
     },
 
     dismissSwipeHint() {
