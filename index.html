@@ -83,6 +83,16 @@
         >×</button>
       </div>
 
+      <div class="ai-copy-bar" x-show="filteredHints.length > 0" x-cloak>
+        <button
+          class="ai-copy-btn"
+          :class="{ copied: copyState === 'copied' }"
+          @click="copyForAI()"
+          type="button"
+          x-text="copyState === 'copied' ? '복사됨!' : 'AI용 힌트 복사'"
+        ></button>
+      </div>
+
       <div class="empty-state" x-show="query && filteredHints.length === 0">
         <p class="empty-title">
           &quot;<span x-text="query"></span>&quot; 관련 힌트를 찾지 못했습니다.

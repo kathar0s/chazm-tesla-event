@@ -18,6 +18,7 @@ function hintApp() {
     _sorted: [],
     _categoryHints: {},
     _categoryCounts: {},
+    copyState: 'idle',
 
     async init() {
       try {
@@ -272,7 +273,7 @@ function hintApp() {
     },
 
     isImagePending(hint) {
-      return hint.category === 'day3' && !hint.image;
+      return (hint.category === 'day3' || hint.category === 'day4') && !hint.image;
     },
 
     placeholderReportUrl(hint) {
@@ -393,6 +394,50 @@ function hintApp() {
         meta.style.opacity = '1';
         meta.style.transform = '';
       }
+    },
+
+    copyForAI() {
+      const hints = this.filteredHints;
+      if (!hints.length) return;
+
+      const isSearch = this.query.trim() !== '';
+      const cat = isSearch ? null : this.category(this.activeCategory);
+      const header = cat ? cat.header : `검색: ${this.query.trim()}`;
+
+      const lines = [`[차즘 보물찾기] ${header} (${hints.length}개)\n`];
+      for (const h of hints) {
+        const kw = h.keywords && h.keywords.length ? h.keywords.join(', ') : '(이미지 힌트)';
+        lines.push(`No.${h.number}: ${kw}`);
+      }
+      lines.push('');
+      lines.push('출처: https://chazm.co.kr/treasure');
+
+      const text = lines.join('\n');
+
+      const finish = () => {
+        this.copyState = 'copied';
+        setTimeout(() => { this.copyState = 'idle'; }, 2000);
+      };
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(finish).catch(() => {
+          this._fallbackCopy(text);
+          finish();
+        });
+      } else {
+        this._fallbackCopy(text);
+        finish();
+      }
+    },
+
+    _fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (_) {}
+      document.body.removeChild(ta);
     },
 
     closeHint() {

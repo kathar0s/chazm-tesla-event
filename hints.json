@@ -7,11 +7,12 @@
     "end_date": "2026-04-29",
     "official_url": "https://chazm.co.kr/treasure"
   },
-  "updated_at": "2026-04-25T00:30:00+09:00",
+  "updated_at": "2026-04-27T00:00:00+09:00",
   "categories": [
     { "id": "day1",     "label": "1일차",   "header": "1일차 힌트",    "css_class": "cat-day1"     },
     { "id": "day2",     "label": "2일차",   "header": "2일차 힌트",    "css_class": "cat-day2"     },
     { "id": "day3",     "label": "3일차",   "header": "3일차 힌트",    "css_class": "cat-day3"     },
+    { "id": "day4",     "label": "4일차",   "header": "4일차 힌트",    "css_class": "cat-day4"     },
     { "id": "estimate", "label": "견적받기", "header": "견적분석 힌트", "css_class": "cat-estimate" }
   ],
   "groups": [],
@@ -72,12 +73,14 @@
 
     { "day": 2, "category": "day2", "number": 1, "keywords": ["핑클"],         "location": null, "group_id": null, "notes": null },
 
-    { "day": 3, "category": "day3", "number": 1, "keywords": ["보석"], "image": "https://cdn.chazm.co.kr/treasure/f5f3a3e0779d45bca82a2fadbec9a0ff.jpg", "location": null, "group_id": null, "notes": null },
-    { "day": 3, "category": "day3", "number": 2, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/b51445817e9e4a8fa47da12dee6a436b.jpg", "location": null, "group_id": null, "notes": null },
-    { "day": 3, "category": "day3", "number": 3, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/b42b9de4ca60487285ee97047f980940.jpg", "location": null, "group_id": null, "notes": null },
-    { "day": 3, "category": "day3", "number": 4, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/845d008c679a46a485085423d694101a.jpg", "location": null, "group_id": null, "notes": null },
-    { "day": 3, "category": "day3", "number": 5, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/118bf5b0e57f4b419694818459406538.jpg", "location": null, "group_id": null, "notes": null },
-    { "day": 3, "category": "day3", "number": 6, "keywords": [], "image": "https://cdn.chazm.co.kr/treasure/5d3e96fadcf243938f7721b8d34b17bd.jpg", "location": null, "group_id": null, "notes": null },
-    { "day": 3, "category": "day3", "number": 7, "keywords": ["컨테이너"], "image": "https://cdn.chazm.co.kr/treasure/e6eec6840e4e40df938bda8f79d3b546.jpg", "location": null, "group_id": null, "notes": null }
+    { "day": 3, "category": "day3", "number": 1, "keywords": ["검은 배경 위 파랑·초록·올리브 컬러 원석 세 개"], "image": "https://cdn.chazm.co.kr/treasure/f5f3a3e0779d45bca82a2fadbec9a0ff.jpg", "location": null, "group_id": null, "notes": null },
+    { "day": 3, "category": "day3", "number": 2, "keywords": ["노트에 손글씨로 일기를 쓰고 있는 모습"], "image": "https://cdn.chazm.co.kr/treasure/b51445817e9e4a8fa47da12dee6a436b.jpg", "location": null, "group_id": null, "notes": null },
+    { "day": 3, "category": "day3", "number": 3, "keywords": ["폴더블폰을 양손으로 조작하는 모습"], "image": "https://cdn.chazm.co.kr/treasure/b42b9de4ca60487285ee97047f980940.jpg", "location": null, "group_id": null, "notes": null },
+    { "day": 3, "category": "day3", "number": 4, "keywords": ["이집트 피라미드 앞 낙타 행렬과 일몰 풍경"], "image": "https://cdn.chazm.co.kr/treasure/845d008c679a46a485085423d694101a.jpg", "location": null, "group_id": null, "notes": null },
+    { "day": 3, "category": "day3", "number": 5, "keywords": ["셜록 기념품·서점 입구, Closed 사인"], "image": "https://cdn.chazm.co.kr/treasure/118bf5b0e57f4b419694818459406538.jpg", "location": null, "group_id": null, "notes": null },
+    { "day": 3, "category": "day3", "number": 6, "keywords": ["캐리어를 끌고 노을 진 길을 걷는 남성 실루엣"], "image": "https://cdn.chazm.co.kr/treasure/5d3e96fadcf243938f7721b8d34b17bd.jpg", "location": null, "group_id": null, "notes": null },
+    { "day": 3, "category": "day3", "number": 7, "keywords": ["항구에 쌓인 주황·갈색 화물 컨테이너 더미"], "image": "https://cdn.chazm.co.kr/treasure/e6eec6840e4e40df938bda8f79d3b546.jpg", "location": null, "group_id": null, "notes": null },
+
+    { "day": 4, "category": "day4", "number": 1, "keywords": ["유리문 너머 1611호 회의실, 두 사람이 테이블에 앉아 있는 모습"], "image": "https://cdn.chazm.co.kr/treasure/9b196263af1e9e7a30b91581119f2160.png", "location": null, "group_id": null, "notes": null }
   ]
 }
