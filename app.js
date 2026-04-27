@@ -234,6 +234,58 @@ function hintApp() {
       return { dx, dy, sx, sy };
     },
 
+    navList() {
+      // Same list visible in the grid (respects active tab + search)
+      return this.filteredHints;
+    },
+
+    navIndex() {
+      const list = this.navList();
+      if (!this.selectedHint) return -1;
+      return list.findIndex(
+        (h) => h.category === this.selectedHint.category && h.number === this.selectedHint.number
+      );
+    },
+
+    prevHint() {
+      const list = this.navList();
+      const idx = this.navIndex();
+      if (idx < 0 || list.length <= 1) return;
+      this._navigateTo(list[(idx - 1 + list.length) % list.length]);
+    },
+
+    nextHint() {
+      const list = this.navList();
+      const idx = this.navIndex();
+      if (idx < 0 || list.length <= 1) return;
+      this._navigateTo(list[(idx + 1) % list.length]);
+    },
+
+    _navigateTo(hint) {
+      if (!hint || hint === this.selectedHint) return;
+      const card = document.querySelector('.modal-card');
+      if (!card) {
+        this.selectedHint = hint;
+        return;
+      }
+      const out = card.animate(
+        [{ opacity: 1 }, { opacity: 0 }],
+        { duration: 110, easing: 'ease-out', fill: 'forwards' }
+      );
+      out.onfinish = () => {
+        this.selectedHint = hint;
+        this.setActiveTransitionName(hint);
+        this.$nextTick(() => {
+          const newCard = document.querySelector('.modal-card');
+          if (!newCard) return;
+          newCard.animate(
+            [{ opacity: 0 }, { opacity: 1 }],
+            { duration: 160, easing: 'ease-in', fill: 'forwards' }
+          );
+        });
+      };
+    },
+
     isPlaceholder(hint) {
       return !hint.image && (!hint.keywords || hint.keywords.length === 0);
     },

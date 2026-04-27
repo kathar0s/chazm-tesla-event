@@ -150,7 +150,27 @@
       </div>
 
       <template x-if="selectedHint">
-        <div class="modal-backdrop" @click.self="closeHint()" @keydown.escape.window="closeHint()">
+        <div
+          class="modal-backdrop"
+          @click.self="closeHint()"
+          @keydown.escape.window="closeHint()"
+          @keydown.left.window="prevHint()"
+          @keydown.right.window="nextHint()"
+        >
+          <button
+            class="modal-nav modal-nav-prev"
+            x-show="navList().length > 1"
+            @click.stop="prevHint()"
+            aria-label="이전 힌트"
+            type="button"
+          >‹</button>
+          <button
+            class="modal-nav modal-nav-next"
+            x-show="navList().length > 1"
+            @click.stop="nextHint()"
+            aria-label="다음 힌트"
+            type="button"
+          >›</button>
           <div class="modal" role="dialog" aria-modal="true">
             <template x-if="selectedHint.image">
               <div class="modal-card" :class="'cat-' + selectedHint.category" :style="{ viewTransitionName: 'hint-' + selectedHint.category + '-' + selectedHint.number + '-p0' }">

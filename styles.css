@@ -481,6 +481,41 @@ a { color: inherit; }
 }
 
 
+/* Modal navigation arrows */
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(20, 20, 22, 0.7);
+  color: var(--text);
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 60;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.modal-nav:hover {
+  background: rgba(40, 40, 44, 0.95);
+  transform: translateY(-50%) scale(1.05);
+}
+.modal-nav-prev { left: 24px; }
+.modal-nav-next { right: 24px; }
+@media (max-width: 520px) {
+  .modal-nav { width: 40px; height: 40px; font-size: 26px; }
+  .modal-nav-prev { left: 10px; }
+  .modal-nav-next { right: 10px; }
+}
+
 /* Modal */
 .modal-backdrop {
   position: fixed;
