@@ -14,3 +14,7 @@ Thumbs.db
 node_modules/
 .wrangler/
 .dev.vars
+
+# Python (dev.py)
+__pycache__/
+*.pyc
