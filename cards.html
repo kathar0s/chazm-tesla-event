@@ -342,6 +342,13 @@
             <circle cx="241" cy="74" r="5"  class="pc-marker-dot" />
             <text   x="241"  y="58"         class="pc-marker-text" x-text="cards[2].location"></text>
           </g>
+          <!-- Card #4 marker: 대구 중구 (221, 219) -->
+          <g x-show="cards[3].found" class="pc-map-marker" @click="selectedCard = cards[3]">
+            <circle cx="221" cy="219" r="12" class="pc-marker-pulse" />
+            <circle cx="221" cy="219" r="9"  class="pc-marker-ring" />
+            <circle cx="221" cy="219" r="5"  class="pc-marker-dot" />
+            <text   x="221"  y="203"         class="pc-marker-text" x-text="cards[3].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -432,8 +439,20 @@
             mapX: 241,
             mapY: 74,
           },
-          ...Array.from({ length: 8 }, (_, i) => ({
-            id: i + 4,
+          {
+            id: 4,
+            found: true,
+            location: '대구 중구',
+            prize: '아웃백 10만원권',
+            finder: '축축한빨대#0021',
+            rank: '명예 수사관',
+            foundAt: '2026-04-28T14:37:00Z',
+            revealAt: '2026-04-29T14:37:00Z',
+            mapX: 221,
+            mapY: 219,
+          },
+          ...Array.from({ length: 7 }, (_, i) => ({
+            id: i + 5,
             found: false,
             location: null,
             prize: null,
