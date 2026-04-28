@@ -335,6 +335,13 @@
             <circle cx="106" cy="91" r="5"  class="pc-marker-dot" />
             <text   x="106"  y="75"         class="pc-marker-text" x-text="cards[1].location"></text>
           </g>
+          <!-- Card #3 marker: 강원 강릉시 (241, 74) -->
+          <g x-show="cards[2].found" class="pc-map-marker" @click="selectedCard = cards[2]">
+            <circle cx="241" cy="74" r="12" class="pc-marker-pulse" />
+            <circle cx="241" cy="74" r="9"  class="pc-marker-ring" />
+            <circle cx="241" cy="74" r="5"  class="pc-marker-dot" />
+            <text   x="241"  y="58"         class="pc-marker-text" x-text="cards[2].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -413,8 +420,20 @@
             mapX: 106,
             mapY: 91,
           },
-          ...Array.from({ length: 9 }, (_, i) => ({
-            id: i + 3,
+          {
+            id: 3,
+            found: true,
+            location: '강원 강릉시',
+            prize: '탐정만원경',
+            finder: '훔친옷걸이#9515',
+            rank: '명예 수사관',
+            foundAt: '2026-04-28T14:31:00Z',
+            revealAt: '2026-04-29T14:31:00Z',
+            mapX: 241,
+            mapY: 74,
+          },
+          ...Array.from({ length: 8 }, (_, i) => ({
+            id: i + 4,
             found: false,
             location: null,
             prize: null,
