@@ -328,6 +328,13 @@
             <circle cx="174" cy="132" r="5"  class="pc-marker-dot" />
             <text   x="174"  y="116"         class="pc-marker-text" x-text="cards[0].location"></text>
           </g>
+          <!-- Card #2 marker: 서울 용산구 (106, 91) -->
+          <g x-show="cards[1].found" class="pc-map-marker" @click="selectedCard = cards[1]">
+            <circle cx="106" cy="91" r="12" class="pc-marker-pulse" />
+            <circle cx="106" cy="91" r="9"  class="pc-marker-ring" />
+            <circle cx="106" cy="91" r="5"  class="pc-marker-dot" />
+            <text   x="106"  y="75"         class="pc-marker-text" x-text="cards[1].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -394,8 +401,20 @@
             mapX: 174,
             mapY: 132,
           },
-          ...Array.from({ length: 10 }, (_, i) => ({
-            id: i + 2,
+          {
+            id: 2,
+            found: true,
+            location: '서울 용산구',
+            prize: '금 0.5g',
+            finder: '고장난국자#6448',
+            rank: '명예 수사관',
+            foundAt: '2026-04-28T07:43:00Z',
+            revealAt: '2026-04-29T07:43:00Z',
+            mapX: 106,
+            mapY: 91,
+          },
+          ...Array.from({ length: 9 }, (_, i) => ({
+            id: i + 3,
             found: false,
             location: null,
             prize: null,
