@@ -349,6 +349,13 @@
             <circle cx="221" cy="219" r="5"  class="pc-marker-dot" />
             <text   x="221"  y="203"         class="pc-marker-text" x-text="cards[3].location"></text>
           </g>
+          <!-- Card #5 marker: 부산 중구 (253, 279) -->
+          <g x-show="cards[4].found" class="pc-map-marker" @click="selectedCard = cards[4]">
+            <circle cx="253" cy="279" r="12" class="pc-marker-pulse" />
+            <circle cx="253" cy="279" r="9"  class="pc-marker-ring" />
+            <circle cx="253" cy="279" r="5"  class="pc-marker-dot" />
+            <text   x="253"  y="263"         class="pc-marker-text" x-text="cards[4].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -451,8 +458,20 @@
             mapX: 221,
             mapY: 219,
           },
-          ...Array.from({ length: 7 }, (_, i) => ({
-            id: i + 5,
+          {
+            id: 5,
+            found: true,
+            location: '부산 중구',
+            prize: '코난 나비 넥타이',
+            finder: '기름진지우개#1964',
+            rank: '명예 수사관',
+            foundAt: '2026-04-28T14:41:00Z',
+            revealAt: '2026-04-29T14:41:00Z',
+            mapX: 253,
+            mapY: 279,
+          },
+          ...Array.from({ length: 6 }, (_, i) => ({
+            id: i + 6,
             found: false,
             location: null,
             prize: null,
