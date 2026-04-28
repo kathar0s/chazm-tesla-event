@@ -347,6 +347,23 @@ a { color: inherit; }
   letter-spacing: 0.03em;
 }
 
+/* Clickable event day */
+.event-day-clickable {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+  padding: 4px 6px;
+  margin: -4px -6px;
+}
+.event-day-clickable:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.event-day-clickable:hover .event-day-label {
+  color: var(--text);
+}
+
 /* AI copy bar */
 .ai-copy-bar {
   display: flex;

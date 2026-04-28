@@ -17,46 +17,23 @@
   <link rel="stylesheet" href="styles.css?v=__CACHE_BUST__" />
 </head>
 <body>
+  <site-header data-page="hints"></site-header>
   <div x-data="hintApp()" x-init="init()" x-cloak>
-    <header class="site-header">
-      <div class="container">
-        <h1>
-          차즘 보물찾기 힌트 모음
-          <span class="collab-badge">차즘 X 김선태</span>
-        </h1>
-        <p>&quot;숨겨진 차키를 찾아라&quot; 힌트를 한눈에 · 비공식 큐레이션</p>
-        <nav>
-          <div class="nav-left">
-            <a href="/">힌트</a>
-            <a href="/about">About</a>
-          </div>
-          <div class="nav-right">
-            <a href="https://chazm.co.kr/treasure" target="_blank" rel="noopener">
-              <img class="nav-icon" src="https://www.google.com/s2/favicons?domain=chazm.co.kr&sz=32" alt="" />공식 이벤트 페이지 ↗
-            </a>
-            <a href="https://open.kakao.com/o/p8FeFVri" target="_blank" rel="noopener">
-              <img class="nav-icon" src="https://www.google.com/s2/favicons?domain=kakao.com&sz=32" alt="" />오픈 채팅방 ↗
-            </a>
-          </div>
-        </nav>
-      </div>
-    </header>
-
     <main class="container">
       <div class="event-dashboard" x-cloak>
         <div class="event-days">
           <template x-for="n in [1,2,3,4,5,6]" :key="n">
-            <div class="event-day" :class="'status-' + dayStatus(n)">
+            <div class="event-day event-day-clickable" :class="'status-' + dayStatus(n)" @click="setDayCategory(n)" role="button" tabindex="0" @keydown.enter="setDayCategory(n)">
               <div class="event-day-dot"></div>
               <div class="event-day-label" x-text="n + '일차'"></div>
               <div class="event-day-date" x-text="'4/' + (23 + n)"></div>
             </div>
           </template>
-          <div class="event-day event-day-card" :class="'status-' + cardRevealStatus()">
+          <a class="event-day event-day-card event-day-clickable" :class="'status-' + cardRevealStatus()" href="/cards">
             <div class="event-day-dot event-day-dot-card"></div>
             <div class="event-day-label">카드 공개</div>
             <div class="event-day-date">5/8</div>
-          </div>
+          </a>
         </div>
         <div class="event-countdown" x-show="countdown">
           <span class="event-countdown-label" x-text="countdownLabel"></span>
@@ -302,6 +279,7 @@
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="components.js?v=__CACHE_BUST__"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
   <script src="app.js?v=__CACHE_BUST__"></script>
   <!-- Cloudflare Web Analytics -->

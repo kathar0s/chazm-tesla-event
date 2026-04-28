@@ -130,6 +130,10 @@ function hintApp() {
       return next === releaseUTC ? 'active' : 'upcoming';
     },
 
+    setDayCategory(n) {
+      this.activeCategory = 'day' + n;
+    },
+
     dismissSwipeHint() {
       this.showSwipeHint = false;
       try { localStorage.setItem('swipe-hint-dismissed', '1'); } catch (_) {}

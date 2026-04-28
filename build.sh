@@ -25,7 +25,7 @@ BUILD_TIME=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
 echo "Cache-bust version: ${VERSION}"
 echo "Build time: ${BUILD_TIME}"
 
-for f in index.html about.html; do
+for f in index.html about.html picture-cards.html; do
   if [ -f "$f" ]; then
     sed -i.bak -e "s/__CACHE_BUST__/${VERSION}/g" -e "s/__BUILD_TIME__/${BUILD_TIME}/g" "$f"
     rm -f "${f}.bak"

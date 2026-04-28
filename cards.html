@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>그림카드 현황 · 차즘 보물찾기</title>
+  <meta name="description" content="차즘(chazm.co.kr) 숨겨진 차키를 찾아라 이벤트 힌트를 한눈에 보는 비공식 큐레이션 페이지" />
+  <link rel="preconnect" href="https://static.chazm.co.kr" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous"
+        href="https://static.chazm.co.kr/chazm-web/5.47.1/_next/static/media/NyjDasanB-s.p.0inf86j4oyk5u.woff2" />
+  <link rel="stylesheet" href="styles.css?v=__CACHE_BUST__" />
+  <style>
+    /* ── Countdown banner ── */
+    .pc-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+    .pc-banner-label { font-size: 13px; color: var(--text-dim); }
+    .pc-banner-timer {
+      font-size: 34px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .pc-banner-stats { display: flex; gap: 6px; align-items: center; font-size: 13px; }
+    .pc-stat-found { color: var(--confirmed); font-weight: 600; }
+    .pc-stat-total { color: var(--text-dim); }
+
+    /* ── View toggle ── */
+    .pc-view-toggle {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px;
+      width: fit-content;
+      margin-bottom: 20px;
+    }
+    .pc-view-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font: inherit;
+      font-size: 13px;
+      padding: 7px 20px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .pc-view-btn:hover { color: var(--text); }
+    .pc-view-btn.active { background: var(--text); color: var(--bg); }
+
+    /* ── Card grid ── */
+    .pc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .pc-card-slot { aspect-ratio: 3/4; position: relative; }
+    .pc-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      gap: 6px;
+      text-align: center;
+    }
+
+    /* Found */
+    .pc-card-found {
+      background: linear-gradient(160deg, #19180d 0%, #141414 100%);
+      border: 1px solid rgba(201, 180, 122, 0.45);
+      box-shadow: 0 0 0 1px rgba(201,180,122,0.12), 0 12px 28px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .pc-card-found:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 0 1px rgba(201,180,122,0.35), 0 18px 38px rgba(0,0,0,0.6);
+    }
+    .pc-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      background: rgba(201,180,122,0.14);
+      border: 1px solid rgba(201,180,122,0.3);
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+    .pc-card-id { font-size: 11px; color: var(--text-dim); }
+    .pc-location { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+    .pc-prize {
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(201,180,122,0.1);
+      border: 1px solid rgba(201,180,122,0.2);
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .pc-rank { font-size: 10px; color: var(--confirmed); font-weight: 600; }
+    .pc-finder { font-size: 10px; color: var(--text-dim); }
+
+    /* Hidden */
+    .pc-card-hidden {
+      background: var(--surface);
+      border: 1px dashed rgba(255,255,255,0.07);
+    }
+    .pc-hidden-id { font-size: 11px; color: rgba(255,255,255,0.15); }
+    .pc-hidden-q {
+      font-family: nyjDasan, "nyjDasan Fallback", sans-serif;
+      font-size: 56px;
+      line-height: 1;
+      color: rgba(255,255,255,0.06);
+    }
+    .pc-hidden-label { font-size: 10px; color: rgba(255,255,255,0.12); letter-spacing: 0.05em; }
+
+    /* ── Map ── */
+    .pc-map-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .pc-map-svg { width: 100%; max-width: 320px; height: auto; display: block; }
+    .pc-map-land {
+      fill: #1c1c22;
+      stroke: #3a3a44;
+      stroke-width: 1.5;
+      stroke-linejoin: round;
+    }
+    .pc-map-marker { cursor: pointer; }
+
+    @keyframes pc-pulse {
+      0%   { r: 10; opacity: 0.5; }
+      100% { r: 24; opacity: 0; }
+    }
+    .pc-marker-pulse { fill: var(--accent); animation: pc-pulse 2.4s ease-out infinite; }
+    .pc-marker-ring  { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0.6; }
+    .pc-marker-dot   { fill: var(--accent); }
+    .pc-marker-text  {
+      fill: var(--text);
+      font-size: 9px;
+      font-family: "Pretendard Variable", Pretendard, sans-serif;
+      font-weight: 700;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+
+    .pc-info-panel {
+      width: 100%;
+      max-width: 320px;
+      background: var(--surface-2);
+      border: 1px solid rgba(201,180,122,0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+    .pc-info-title { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+    .pc-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pc-info-row:last-child { border-bottom: none; }
+    .pc-info-lbl { color: var(--text-dim); }
+    .pc-info-val { color: var(--text); font-weight: 500; }
+    .pc-info-val.is-rank { color: var(--confirmed); }
+    .pc-map-hint { font-size: 11px; color: var(--text-dim); text-align: center; }
+    .pc-found-time { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    /* Per-card reveal countdown */
+    .pc-card-cd {
+      margin-top: 4px;
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--accent);
+      background: rgba(201,180,122,0.1);
+      border: 1px solid rgba(201,180,122,0.2);
+      padding: 3px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pc-card-cd.revealed {
+      color: var(--confirmed);
+      background: rgba(111,185,143,0.1);
+      border-color: rgba(111,185,143,0.25);
+    }
+
+    @media (max-width: 520px) {
+      .pc-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .pc-card { padding: 10px; gap: 4px; }
+      .pc-location { font-size: 16px; }
+      .pc-hidden-q { font-size: 42px; }
+      .pc-banner-timer { font-size: 26px; }
+    }
+    @media (max-width: 360px) {
+      .pc-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <site-header data-page="cards"></site-header>
+  <div x-data="pcApp()" x-init="init()" x-cloak>
+    <main class="container">
+      <!-- Countdown -->
+      <div class="pc-banner">
+        <div class="pc-banner-label" x-text="countdownLabel"></div>
+        <div class="pc-banner-timer" x-text="countdown || '공개됨'"></div>
+        <div class="pc-banner-stats">
+          <span class="pc-stat-found">발견 <strong x-text="foundCount"></strong>개</span>
+          <span class="pc-stat-total">/ 전체 <strong x-text="cards.length"></strong>개</span>
+        </div>
+      </div>
+
+      <!-- View toggle -->
+      <div class="pc-view-toggle">
+        <button type="button" class="pc-view-btn" :class="{ active: view === 'cards' }" @click="view = 'cards'">카드 뷰</button>
+        <button type="button" class="pc-view-btn" :class="{ active: view === 'map' }" @click="view = 'map'">지도 뷰</button>
+      </div>
+
+      <!-- Card grid -->
+      <div class="pc-grid" x-show="view === 'cards'" x-cloak>
+        <template x-for="card in cards" :key="card.id">
+          <div class="pc-card-slot">
+            <template x-if="card.found">
+              <div class="pc-card pc-card-found" @click="view = 'map'; selectedCard = card">
+                <div class="pc-badge">발견됨</div>
+                <div class="pc-card-id" x-text="'#' + card.id"></div>
+                <div class="pc-location" x-text="card.location"></div>
+                <div class="pc-prize" x-text="card.prize"></div>
+                <div class="pc-finder" x-text="card.finder"></div>
+                <div class="pc-found-time" x-text="foundTime(card)"></div>
+                <div
+                  class="pc-card-cd"
+                  :class="{ revealed: cardRevealed(card) }"
+                  x-text="cardCountdown(card)"
+                ></div>
+              </div>
+            </template>
+            <template x-if="!card.found">
+              <div class="pc-card pc-card-hidden">
+                <div class="pc-hidden-id" x-text="'#' + card.id"></div>
+                <div class="pc-hidden-q">?</div>
+                <div class="pc-hidden-label">미발견</div>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+
+      <!-- Map view -->
+      <div class="pc-map-wrap" x-show="view === 'map'" x-cloak>
+        <svg viewBox="0 0 300 360" class="pc-map-svg" xmlns="http://www.w3.org/2000/svg">
+          <!-- South Korea mainland (simplified) -->
+          <path class="pc-map-land" d="
+            M 36,54
+            Q 128,38 220,8
+            L 243,74
+            L 264,116
+            L 279,209
+            Q 270,248 250,279
+            L 229,294
+            Q 193,303 157,306
+            Q 118,321 86,337
+            L 79,321
+            Q 64,308 64,302
+            L 71,276
+            Q 80,244 86,213
+            Q 72,190 64,170
+            Q 76,153 82,139
+            Q 87,116 86,97
+            L 82,85
+            Z
+          " />
+          <!-- Card #1 marker: 충주시 (174, 132) -->
+          <g x-show="cards[0].found" class="pc-map-marker" @click="selectedCard = cards[0]">
+            <circle cx="174" cy="132" r="12" class="pc-marker-pulse" />
+            <circle cx="174" cy="132" r="9"  class="pc-marker-ring" />
+            <circle cx="174" cy="132" r="5"  class="pc-marker-dot" />
+            <text   x="174"  y="116"         class="pc-marker-text" x-text="cards[0].location"></text>
+          </g>
+        </svg>
+
+        <!-- Info panel -->
+        <template x-if="selectedCard && selectedCard.found">
+          <div class="pc-info-panel">
+            <div class="pc-info-title" x-text="'그림카드 #' + selectedCard.id + ' · 발견됨'"></div>
+            <div class="pc-info-row">
+              <span class="pc-info-lbl">발견 장소</span>
+              <span class="pc-info-val" x-text="selectedCard.location"></span>
+            </div>
+            <div class="pc-info-row">
+              <span class="pc-info-lbl">상품</span>
+              <span class="pc-info-val" x-text="selectedCard.prize"></span>
+            </div>
+            <div class="pc-info-row">
+              <span class="pc-info-lbl">수사관</span>
+              <span class="pc-info-val" x-text="selectedCard.finder"></span>
+            </div>
+          </div>
+        </template>
+
+        <div class="pc-map-hint">마커를 클릭하면 발견 정보를 확인할 수 있어요</div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div>
+          Made with ☕ · 비공식 팬 큐레이션 ·
+          <a href="/about">About</a> ·
+          <a href="https://github.com/kathar0s/chazm-tesla-event" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script src="components.js?v=__CACHE_BUST__"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
+  <script>
+    function pcApp() {
+      return {
+        view: 'cards',
+        countdown: '',
+        countdownLabel: '미발견 그림카드 일괄 공개까지',
+        selectedCard: null,
+
+        _tick: 0,
+
+        cards: [
+          {
+            id: 1,
+            found: true,
+            location: '충주시',
+            prize: '애플워치 SE3',
+            finder: '설탕묻은빨대#9716',
+            rank: '명예 수사관',
+            foundAt: '2026-04-28T04:19:00Z',
+            revealAt: '2026-04-29T04:19:00Z', // 공지 후 24시간
+            mapX: 174,
+            mapY: 132,
+          },
+          ...Array.from({ length: 10 }, (_, i) => ({
+            id: i + 2,
+            found: false,
+            location: null,
+            prize: null,
+            finder: null,
+            rank: null,
+            foundAt: null,
+            mapX: null,
+            mapY: null,
+          })),
+        ],
+
+        get foundCount() {
+          return this.cards.filter(c => c.found).length;
+        },
+
+        init() {
+          this.selectedCard = this.cards.find(c => c.found) || null;
+          this.startCountdown();
+        },
+
+        foundTime(card) {
+          if (!card.foundAt) return '';
+          const d = new Date(card.foundAt);
+          const kst = new Date(d.getTime() + 9 * 3600000);
+          const M = kst.getUTCMonth() + 1;
+          const D = kst.getUTCDate();
+          const h = String(kst.getUTCHours()).padStart(2, '0');
+          const m = String(kst.getUTCMinutes()).padStart(2, '0');
+          return `${M}월 ${D}일 ${h}:${m} 발견`;
+        },
+
+        cardRevealed(card) {
+          void this._tick;
+          return card.revealAt && Date.now() >= new Date(card.revealAt).getTime();
+        },
+
+        cardCountdown(card) {
+          void this._tick;
+          if (!card.revealAt) return '';
+          const diff = new Date(card.revealAt).getTime() - Date.now();
+          if (diff <= 0) return '그림카드 공개됨';
+          const h   = Math.floor(diff / 3600000);
+          const m   = Math.floor((diff % 3600000) / 60000);
+          const s   = Math.floor((diff % 60000)   / 1000);
+          const pad = n => String(n).padStart(2, '0');
+          return `공개까지 ${pad(h)}:${pad(m)}:${pad(s)}`;
+        },
+
+        startCountdown() {
+          const TARGET = Date.UTC(2026, 4, 7, 15, 0, 0); // 2026-05-08 00:00 KST
+          const tick = () => {
+            this._tick++;
+            const diff = TARGET - Date.now();
+            if (diff <= 0) {
+              this.countdown = null;
+              this.countdownLabel = '그림카드 일괄 공개됨';
+              return;
+            }
+            const days = Math.floor(diff / 86400000);
+            const h    = Math.floor((diff % 86400000) / 3600000);
+            const m    = Math.floor((diff % 3600000)  / 60000);
+            const s    = Math.floor((diff % 60000)    / 1000);
+            const pad  = n => String(n).padStart(2, '0');
+            this.countdown = days > 0
+              ? `${days}일 ${pad(h)}:${pad(m)}:${pad(s)}`
+              : `${pad(h)}:${pad(m)}:${pad(s)}`;
+          };
+          tick();
+          setInterval(tick, 1000);
+        },
+      };
+    }
+  </script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "9853ced3fc91404fa07cecadd75d1ae2"}'></script>
+</body>
+</html>
