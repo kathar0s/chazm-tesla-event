@@ -371,6 +371,13 @@
             <circle cx="120" cy="113" r="5"  class="pc-marker-dot" />
             <text   x="120"  y="97"          class="pc-marker-text" x-text="cards[5].location"></text>
           </g>
+          <!-- Card #7 marker: 전남 담양군 (106, 262) -->
+          <g x-show="cards[6].found" class="pc-map-marker" @click="selectedCard = cards[6]">
+            <circle cx="106" cy="262" r="12" class="pc-marker-pulse" />
+            <circle cx="106" cy="262" r="9"  class="pc-marker-ring" />
+            <circle cx="106" cy="262" r="5"  class="pc-marker-dot" />
+            <text   x="106"  y="246"         class="pc-marker-text" x-text="cards[6].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -505,8 +512,21 @@
             mapX: 120,
             mapY: 113,
           },
-          ...Array.from({ length: 5 }, (_, i) => ({
-            id: i + 7,
+          {
+            id: 7,
+            found: true,
+            location: '전남 담양군',
+            spot: '관방제림 인근 추정',
+            prize: '닌텐도 스위치 2',
+            finder: '퍼석한칫솔#2975',
+            rank: '명예 수사관',
+            foundAt: '2026-04-28T15:53:00Z',
+            revealAt: '2026-04-29T15:53:00Z',
+            mapX: 106,
+            mapY: 262,
+          },
+          ...Array.from({ length: 4 }, (_, i) => ({
+            id: i + 8,
             found: false,
             location: null,
             prize: null,
