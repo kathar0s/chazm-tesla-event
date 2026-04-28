@@ -364,6 +364,13 @@
             <circle cx="253" cy="279" r="5"  class="pc-marker-dot" />
             <text   x="253"  y="263"         class="pc-marker-text" x-text="cards[4].location"></text>
           </g>
+          <!-- Card #6 marker: 경기 용인시 (120, 113) -->
+          <g x-show="cards[5].found" class="pc-map-marker" @click="selectedCard = cards[5]">
+            <circle cx="120" cy="113" r="12" class="pc-marker-pulse" />
+            <circle cx="120" cy="113" r="9"  class="pc-marker-ring" />
+            <circle cx="120" cy="113" r="5"  class="pc-marker-dot" />
+            <text   x="120"  y="97"          class="pc-marker-text" x-text="cards[5].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -485,8 +492,21 @@
             mapX: 253,
             mapY: 279,
           },
-          ...Array.from({ length: 6 }, (_, i) => ({
-            id: i + 6,
+          {
+            id: 6,
+            found: true,
+            location: '경기 용인시',
+            spot: null,
+            prize: '코난 시계',
+            finder: '빛바랜지우개#3942',
+            rank: '명예 수사관',
+            foundAt: '2026-04-28T15:41:00Z',
+            revealAt: '2026-04-29T15:41:00Z',
+            mapX: 120,
+            mapY: 113,
+          },
+          ...Array.from({ length: 5 }, (_, i) => ({
+            id: i + 7,
             found: false,
             location: null,
             prize: null,
