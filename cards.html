@@ -193,6 +193,14 @@
     .pc-info-val { color: var(--text); font-weight: 500; }
     .pc-info-val.is-rank { color: var(--confirmed); }
     .pc-map-hint { font-size: 11px; color: var(--text-dim); text-align: center; }
+    .pc-island-label {
+      fill: #5a5a62;
+      font-size: 7px;
+      font-family: "Pretendard Variable", Pretendard, sans-serif;
+      font-weight: 600;
+      text-anchor: middle;
+      pointer-events: none;
+    }
     .pc-found-time { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
     /* Per-card reveal countdown */
@@ -279,7 +287,7 @@
 
       <!-- Map view -->
       <div class="pc-map-wrap" x-show="view === 'map'" x-cloak>
-        <svg viewBox="0 0 300 360" class="pc-map-svg" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 370 450" class="pc-map-svg" xmlns="http://www.w3.org/2000/svg">
           <!-- South Korea mainland (simplified) -->
           <path class="pc-map-land" d="
             M 36,54
@@ -301,6 +309,18 @@
             L 82,85
             Z
           " />
+          <!-- 제주도 -->
+          <ellipse cx="71" cy="408" rx="26" ry="13" class="pc-map-land" />
+          <text x="71" y="431" class="pc-island-label">제주도</text>
+
+          <!-- 울릉도 -->
+          <circle cx="316" cy="95" r="7" class="pc-map-land" />
+          <text x="316" y="87" class="pc-island-label">울릉도</text>
+
+          <!-- 독도 -->
+          <circle cx="350" cy="115" r="4" class="pc-map-land" />
+          <text x="350" y="107" class="pc-island-label">독도</text>
+
           <!-- Card #1 marker: 충주시 (174, 132) -->
           <g x-show="cards[0].found" class="pc-map-marker" @click="selectedCard = cards[0]">
             <circle cx="174" cy="132" r="12" class="pc-marker-pulse" />
