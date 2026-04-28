@@ -157,7 +157,7 @@ a { color: inherit; }
 .cat-tab.active.cat-tab-day2 { background: #ddc6f8; color: #1a1424; border-color: #ddc6f8; }
 .cat-tab.active.cat-tab-day3 { background: #fcc5be; color: #2d1717; border-color: #fcc5be; }
 .cat-tab.active.cat-tab-day4 { background: #81c1fe; color: #0d1e30; border-color: #81c1fe; }
-.cat-tab.active.cat-tab-day5 { background: #fef08a; color: #2a2400; border-color: #fef08a; }
+.cat-tab.active.cat-tab-day5 { background: #edeae2; color: #24221c; border-color: #d6d2ca; }
 .cat-tab.active.cat-tab-day6 { background: #fed7aa; color: #2a1500; border-color: #fed7aa; }
 .cat-tab.active.cat-tab-estimate { background: #fbb674; color: #2a1c08; border-color: #fbb674; }
 
@@ -169,7 +169,7 @@ a { color: inherit; }
 .cat-day4 > .card,
 .modal-card.cat-day4 { background: #81c1fe; }
 .cat-day5 > .card,
-.modal-card.cat-day5 { background: #fef08a; }
+.modal-card.cat-day5 { background: #edeae2; }
 .cat-day6 > .card,
 .modal-card.cat-day6 { background: #fed7aa; }
 .cat-estimate > .card,
