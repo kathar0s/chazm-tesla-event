@@ -257,6 +257,17 @@
         </div>
       </div>
 
+      <!-- AI copy -->
+      <div class="ai-copy-bar">
+        <button
+          class="ai-copy-btn"
+          :class="{ copied: copyState === 'copied' }"
+          @click="copyForAI()"
+          type="button"
+          x-text="copyState === 'copied' ? '복사됨!' : 'AI용 카드 정보 복사'"
+        ></button>
+      </div>
+
       <!-- View toggle -->
       <div class="pc-view-toggle">
         <button type="button" class="pc-view-btn" :class="{ active: view === 'cards' }" @click="view = 'cards'">카드 뷰</button>
@@ -432,6 +443,7 @@
         countdown: '',
         countdownLabel: '미발견 그림카드 일괄 공개까지',
         selectedCard: null,
+        copyState: 'idle',
 
         _tick: 0,
 
@@ -547,6 +559,43 @@
         init() {
           this.selectedCard = this.cards.find(c => c.found) || null;
           this.startCountdown();
+        },
+
+        copyForAI() {
+          const found = this.cards.filter(c => c.found);
+          const lines = [
+            `[차즘 그림카드 현황] 발견 ${found.length}개 / 전체 ${this.cards.length}개\n`,
+          ];
+          for (const c of found) {
+            const parts = [`#${c.id}`, c.location];
+            if (c.spot) parts.push(c.spot);
+            parts.push(c.prize, c.finder, this.foundTime(c));
+            lines.push(parts.join(' · '));
+          }
+          const unfound = this.cards.filter(c => !c.found).map(c => `#${c.id}`).join(', ');
+          if (unfound) lines.push(`\n미발견: ${unfound}`);
+          lines.push('\n출처: https://chazm.co.kr/treasure');
+
+          const text = lines.join('\n');
+          const finish = () => {
+            this.copyState = 'copied';
+            setTimeout(() => { this.copyState = 'idle'; }, 2000);
+          };
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(finish).catch(() => { this._fallbackCopy(text); finish(); });
+          } else {
+            this._fallbackCopy(text); finish();
+          }
+        },
+
+        _fallbackCopy(text) {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (_) {}
+          document.body.removeChild(ta);
         },
 
         foundTime(card) {
