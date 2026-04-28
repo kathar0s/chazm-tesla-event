@@ -201,6 +201,14 @@
       text-anchor: middle;
       pointer-events: none;
     }
+    .pc-spot {
+      font-size: 10px;
+      color: var(--accent);
+      background: rgba(201,180,122,0.1);
+      border: 1px solid rgba(201,180,122,0.2);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
     .pc-found-time { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
 
     /* Per-card reveal countdown */
@@ -264,6 +272,7 @@
                 <div class="pc-badge">발견됨</div>
                 <div class="pc-card-id" x-text="'#' + card.id"></div>
                 <div class="pc-location" x-text="card.location"></div>
+                <div class="pc-spot" x-show="card.spot" x-text="card.spot"></div>
                 <div class="pc-prize" x-text="card.prize"></div>
                 <div class="pc-finder" x-text="card.finder"></div>
                 <div class="pc-found-time" x-text="foundTime(card)"></div>
@@ -366,6 +375,10 @@
               <span class="pc-info-lbl">발견 장소</span>
               <span class="pc-info-val" x-text="selectedCard.location"></span>
             </div>
+            <div class="pc-info-row" x-show="selectedCard.spot">
+              <span class="pc-info-lbl">세부 위치</span>
+              <span class="pc-info-val" x-text="selectedCard.spot"></span>
+            </div>
             <div class="pc-info-row">
               <span class="pc-info-lbl">상품</span>
               <span class="pc-info-val" x-text="selectedCard.prize"></span>
@@ -414,11 +427,12 @@
             id: 1,
             found: true,
             location: '충주시',
+            spot: '탄금호 사랑의 자물쇠',
             prize: '애플워치 SE3',
             finder: '설탕묻은빨대#9716',
             rank: '명예 수사관',
             foundAt: '2026-04-28T04:19:00Z',
-            revealAt: '2026-04-29T04:19:00Z', // 공지 후 24시간
+            revealAt: '2026-04-29T04:19:00Z',
             mapX: 174,
             mapY: 132,
           },
@@ -426,6 +440,7 @@
             id: 2,
             found: true,
             location: '서울 용산구',
+            spot: '남산타워 사랑의 자물쇠',
             prize: '금 0.5g',
             finder: '고장난국자#6448',
             rank: '명예 수사관',
@@ -450,6 +465,7 @@
             id: 4,
             found: true,
             location: '대구 중구',
+            spot: '김광석거리 사랑의 자물쇠',
             prize: '아웃백 10만원권',
             finder: '축축한빨대#0021',
             rank: '명예 수사관',
