@@ -474,6 +474,13 @@
             <circle cx="240" cy="290" r="5"  class="pc-marker-dot" />
             <text   x="240"  y="307"         class="pc-marker-text" x-text="cards[9].location"></text>
           </g>
+          <!-- Card #11 marker: 경남 통영시 (225, 290) -->
+          <g x-show="cards[10].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[10] }" @click="selectedCard = cards[10]">
+            <circle cx="225" cy="290" r="12" class="pc-marker-pulse" />
+            <circle cx="225" cy="290" r="9"  class="pc-marker-ring" />
+            <circle cx="225" cy="290" r="5"  class="pc-marker-dot" />
+            <text   x="225"  y="273"         class="pc-marker-text" x-text="cards[10].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -581,7 +588,6 @@
             rank: '명예 수사관',
             foundAt: '2026-04-28T14:31:00Z',
             revealAt: '2026-04-29T14:31:00Z',
-            image: 'https://cdn.chazm.co.kr/treasure/2987068052dd43ad882b03976682c42e.jpg',
             hintRef: '그림카드 힌트 No.2',
             hintNumber: 2,
             mapX: 241,
@@ -597,6 +603,7 @@
             rank: '명예 수사관',
             foundAt: '2026-04-28T14:37:00Z',
             revealAt: '2026-04-29T14:37:00Z',
+            image: 'https://cdn.chazm.co.kr/treasure/2987068052dd43ad882b03976682c42e.jpg',
             hintRef: '그림카드 힌트 No.5',
             hintNumber: 5,
             mapX: 221,
@@ -698,17 +705,22 @@
             mapX: 240,
             mapY: 290,
           },
-          ...Array.from({ length: 1 }, (_, i) => ({
-            id: i + 11,
-            found: false,
-            location: null,
+          {
+            id: 11,
+            found: true,
+            location: '경남 통영시',
+            spot: '미륵산 추정',
             prize: null,
             finder: null,
-            rank: null,
+            rank: '명예 수사관',
             foundAt: null,
-            mapX: null,
-            mapY: null,
-          })),
+            revealAt: null,
+            image: 'https://cdn.chazm.co.kr/treasure/f57a45cbd44543d69f246e7254c146cf.jpg',
+            hintRef: '그림카드 힌트 No.7',
+            hintNumber: 7,
+            mapX: 225,
+            mapY: 290,
+          },
         ],
 
         get foundCount() {
