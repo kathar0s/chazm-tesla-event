@@ -773,9 +773,61 @@
     {
       "day": 6,
       "category": "day6",
+      "number": 1,
+      "keywords": [],
+      "image": "https://cdn.chazm.co.kr/treasure/bbea500a71034c95b44a09a0ce083243.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
+    },
+    {
+      "day": 6,
+      "category": "day6",
+      "number": 3,
+      "keywords": [],
+      "image": "https://cdn.chazm.co.kr/treasure/8178eea33e414cd3adabd4d276d7cbe6.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
+    },
+    {
+      "day": 6,
+      "category": "day6",
+      "number": 6,
+      "keywords": [],
+      "image": "https://cdn.chazm.co.kr/treasure/1caef0e110924787bdc998c79f1f7f67.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
+    },
+    {
+      "day": 6,
+      "category": "day6",
       "number": 7,
       "keywords": [],
       "image": "https://cdn.chazm.co.kr/treasure/6f561b731b1f4be6bd7c8fb2f4a33d79.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
+    },
+    {
+      "day": 6,
+      "category": "day6",
+      "number": 10,
+      "keywords": [
+        "단풍"
+      ],
+      "image": "https://cdn.chazm.co.kr/treasure/be49de36990c44198820f88cc194b9dd.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
+    },
+    {
+      "day": 6,
+      "category": "day6",
+      "number": 11,
+      "keywords": [],
+      "image": "https://cdn.chazm.co.kr/treasure/378c6ecaecda4b0892f170e6739af9e5.png",
       "location": null,
       "group_id": null,
       "notes": null
