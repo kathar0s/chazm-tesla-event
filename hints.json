@@ -783,6 +783,16 @@
     {
       "day": 6,
       "category": "day6",
+      "number": 2,
+      "keywords": [],
+      "image": "https://cdn.chazm.co.kr/treasure/2ba20c3532644562ae17c06cda48a7a7.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
+    },
+    {
+      "day": 6,
+      "category": "day6",
       "number": 3,
       "keywords": [],
       "image": "https://cdn.chazm.co.kr/treasure/8178eea33e414cd3adabd4d276d7cbe6.png",
