@@ -389,6 +389,13 @@
             <circle cx="106" cy="262" r="5"  class="pc-marker-dot" />
             <text   x="106"  y="246"         class="pc-marker-text" x-text="cards[6].location"></text>
           </g>
+          <!-- Card #8 marker: 제주 서귀포시 (71, 408) -->
+          <g x-show="cards[7].found" class="pc-map-marker" @click="selectedCard = cards[7]">
+            <circle cx="71" cy="408" r="12" class="pc-marker-pulse" />
+            <circle cx="71" cy="408" r="9"  class="pc-marker-ring" />
+            <circle cx="71" cy="408" r="5"  class="pc-marker-dot" />
+            <text   x="71"  y="392"         class="pc-marker-text" x-text="cards[7].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -539,8 +546,21 @@
             mapX: 106,
             mapY: 262,
           },
-          ...Array.from({ length: 4 }, (_, i) => ({
-            id: i + 8,
+          {
+            id: 8,
+            found: true,
+            location: '제주 서귀포시',
+            spot: '서연교 추정',
+            prize: '셜록 홈즈 전집',
+            finder: '먼지쌓인우산#4285',
+            rank: '명예 수사관',
+            foundAt: '2026-04-29T03:22:00Z',
+            revealAt: '2026-04-30T03:22:00Z',
+            mapX: 71,
+            mapY: 408,
+          },
+          ...Array.from({ length: 3 }, (_, i) => ({
+            id: i + 9,
             found: false,
             location: null,
             prize: null,
