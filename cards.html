@@ -180,6 +180,16 @@
       padding: 16px 20px;
     }
     .pc-info-title { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 10px; }
+    .pc-info-image {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      background: #f3eee2;
+      border-radius: 10px;
+      margin: 0 auto 12px;
+      display: block;
+    }
     .pc-info-row {
       display: flex;
       justify-content: space-between;
@@ -402,6 +412,12 @@
         <template x-if="selectedCard && selectedCard.found">
           <div class="pc-info-panel">
             <div class="pc-info-title" x-text="'그림카드 #' + selectedCard.id + ' · 발견됨'"></div>
+            <img
+              x-show="selectedCard.image && cardRevealed(selectedCard)"
+              :src="selectedCard.image"
+              :alt="'그림카드 #' + selectedCard.id"
+              class="pc-info-image"
+            />
             <div class="pc-info-row">
               <span class="pc-info-lbl">발견 장소</span>
               <span class="pc-info-val" x-text="selectedCard.location"></span>
@@ -409,6 +425,10 @@
             <div class="pc-info-row" x-show="selectedCard.spot">
               <span class="pc-info-lbl">세부 위치</span>
               <span class="pc-info-val" x-text="selectedCard.spot"></span>
+            </div>
+            <div class="pc-info-row" x-show="selectedCard.hintRef">
+              <span class="pc-info-lbl">힌트 매칭</span>
+              <span class="pc-info-val" x-text="selectedCard.hintRef"></span>
             </div>
             <div class="pc-info-row">
               <span class="pc-info-lbl">상품</span>
@@ -465,6 +485,8 @@
             rank: '명예 수사관',
             foundAt: '2026-04-28T04:19:00Z',
             revealAt: '2026-04-29T04:19:00Z',
+            image: 'https://cdn.chazm.co.kr/treasure/1742571ee4b6444fa914c99fe61dcff6.jpg',
+            hintRef: '그림카드 힌트 No.10',
             mapX: 174,
             mapY: 132,
           },
