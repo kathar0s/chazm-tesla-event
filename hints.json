@@ -803,6 +803,16 @@
     {
       "day": 6,
       "category": "day6",
+      "number": 4,
+      "keywords": [],
+      "image": "https://cdn.chazm.co.kr/treasure/72f5dc3eb1c94e15a7468066231b282f.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
+    },
+    {
+      "day": 6,
+      "category": "day6",
       "number": 5,
       "keywords": [],
       "image": "https://cdn.chazm.co.kr/treasure/618ff9e4bf3c4445acf4a3107f97ed50.png",
