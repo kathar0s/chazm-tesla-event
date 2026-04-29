@@ -460,6 +460,13 @@
             <circle cx="71" cy="408" r="5"  class="pc-marker-dot" />
             <text   x="71"  y="392"         class="pc-marker-text" x-text="cards[7].location"></text>
           </g>
+          <!-- Card #9 marker: 서울 동작구 (102, 99) -->
+          <g x-show="cards[8].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[8] }" @click="selectedCard = cards[8]">
+            <circle cx="102" cy="99" r="12" class="pc-marker-pulse" />
+            <circle cx="102" cy="99" r="9"  class="pc-marker-ring" />
+            <circle cx="102" cy="99" r="5"  class="pc-marker-dot" />
+            <text   x="102"  y="116"         class="pc-marker-text" x-text="cards[8].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -635,8 +642,21 @@
             mapX: 71,
             mapY: 408,
           },
-          ...Array.from({ length: 3 }, (_, i) => ({
-            id: i + 9,
+          {
+            id: 9,
+            found: true,
+            location: '서울 동작구',
+            spot: null,
+            prize: '1++ 한우세트',
+            finder: '빛바랜지우개#3942',
+            rank: '명예 수사관',
+            foundAt: '2026-04-29T09:33:00Z',
+            revealAt: '2026-04-30T09:33:00Z',
+            mapX: 102,
+            mapY: 99,
+          },
+          ...Array.from({ length: 2 }, (_, i) => ({
+            id: i + 10,
             found: false,
             location: null,
             prize: null,
