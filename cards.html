@@ -201,8 +201,11 @@
       100% { r: 24; opacity: 0; }
     }
     .pc-marker-pulse { fill: var(--accent); animation: pc-pulse 2.4s ease-out infinite; }
-    .pc-marker-ring  { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0.6; }
-    .pc-marker-dot   { fill: var(--accent); }
+    .pc-marker-ring  { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: 0.6; transition: stroke 0.18s, stroke-width 0.18s, opacity 0.18s; }
+    .pc-marker-dot   { fill: var(--accent); transition: fill 0.18s; }
+    .pc-map-marker.is-selected .pc-marker-dot { fill: #fff; }
+    .pc-map-marker.is-selected .pc-marker-ring { stroke: #fff; stroke-width: 2.5; opacity: 1; }
+    .pc-map-marker.is-selected .pc-marker-text { fill: #fff; font-size: 10px; }
     .pc-marker-text  {
       fill: var(--text);
       font-size: 9px;
@@ -402,56 +405,56 @@
           <text x="350" y="107" class="pc-island-label">독도</text>
 
           <!-- Card #1 marker: 충주시 (174, 132) -->
-          <g x-show="cards[0].found" class="pc-map-marker" @click="selectedCard = cards[0]">
+          <g x-show="cards[0].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[0] }" @click="selectedCard = cards[0]">
             <circle cx="174" cy="132" r="12" class="pc-marker-pulse" />
             <circle cx="174" cy="132" r="9"  class="pc-marker-ring" />
             <circle cx="174" cy="132" r="5"  class="pc-marker-dot" />
             <text   x="174"  y="116"         class="pc-marker-text" x-text="cards[0].location"></text>
           </g>
           <!-- Card #2 marker: 서울 용산구 (106, 91) -->
-          <g x-show="cards[1].found" class="pc-map-marker" @click="selectedCard = cards[1]">
+          <g x-show="cards[1].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[1] }" @click="selectedCard = cards[1]">
             <circle cx="106" cy="91" r="12" class="pc-marker-pulse" />
             <circle cx="106" cy="91" r="9"  class="pc-marker-ring" />
             <circle cx="106" cy="91" r="5"  class="pc-marker-dot" />
             <text   x="106"  y="75"         class="pc-marker-text" x-text="cards[1].location"></text>
           </g>
           <!-- Card #3 marker: 강원 강릉시 (241, 74) -->
-          <g x-show="cards[2].found" class="pc-map-marker" @click="selectedCard = cards[2]">
+          <g x-show="cards[2].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[2] }" @click="selectedCard = cards[2]">
             <circle cx="241" cy="74" r="12" class="pc-marker-pulse" />
             <circle cx="241" cy="74" r="9"  class="pc-marker-ring" />
             <circle cx="241" cy="74" r="5"  class="pc-marker-dot" />
             <text   x="241"  y="58"         class="pc-marker-text" x-text="cards[2].location"></text>
           </g>
           <!-- Card #4 marker: 대구 중구 (221, 219) -->
-          <g x-show="cards[3].found" class="pc-map-marker" @click="selectedCard = cards[3]">
+          <g x-show="cards[3].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[3] }" @click="selectedCard = cards[3]">
             <circle cx="221" cy="219" r="12" class="pc-marker-pulse" />
             <circle cx="221" cy="219" r="9"  class="pc-marker-ring" />
             <circle cx="221" cy="219" r="5"  class="pc-marker-dot" />
             <text   x="221"  y="203"         class="pc-marker-text" x-text="cards[3].location"></text>
           </g>
           <!-- Card #5 marker: 부산 중구 (253, 279) -->
-          <g x-show="cards[4].found" class="pc-map-marker" @click="selectedCard = cards[4]">
+          <g x-show="cards[4].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[4] }" @click="selectedCard = cards[4]">
             <circle cx="253" cy="279" r="12" class="pc-marker-pulse" />
             <circle cx="253" cy="279" r="9"  class="pc-marker-ring" />
             <circle cx="253" cy="279" r="5"  class="pc-marker-dot" />
             <text   x="253"  y="263"         class="pc-marker-text" x-text="cards[4].location"></text>
           </g>
           <!-- Card #6 marker: 경기 용인시 (120, 113) -->
-          <g x-show="cards[5].found" class="pc-map-marker" @click="selectedCard = cards[5]">
+          <g x-show="cards[5].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[5] }" @click="selectedCard = cards[5]">
             <circle cx="120" cy="113" r="12" class="pc-marker-pulse" />
             <circle cx="120" cy="113" r="9"  class="pc-marker-ring" />
             <circle cx="120" cy="113" r="5"  class="pc-marker-dot" />
             <text   x="120"  y="97"          class="pc-marker-text" x-text="cards[5].location"></text>
           </g>
           <!-- Card #7 marker: 전남 담양군 (106, 262) -->
-          <g x-show="cards[6].found" class="pc-map-marker" @click="selectedCard = cards[6]">
+          <g x-show="cards[6].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[6] }" @click="selectedCard = cards[6]">
             <circle cx="106" cy="262" r="12" class="pc-marker-pulse" />
             <circle cx="106" cy="262" r="9"  class="pc-marker-ring" />
             <circle cx="106" cy="262" r="5"  class="pc-marker-dot" />
             <text   x="106"  y="246"         class="pc-marker-text" x-text="cards[6].location"></text>
           </g>
           <!-- Card #8 marker: 제주 서귀포시 (71, 408) -->
-          <g x-show="cards[7].found" class="pc-map-marker" @click="selectedCard = cards[7]">
+          <g x-show="cards[7].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[7] }" @click="selectedCard = cards[7]">
             <circle cx="71" cy="408" r="12" class="pc-marker-pulse" />
             <circle cx="71" cy="408" r="9"  class="pc-marker-ring" />
             <circle cx="71" cy="408" r="5"  class="pc-marker-dot" />
