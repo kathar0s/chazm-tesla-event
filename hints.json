@@ -646,7 +646,7 @@
       "keywords": [
         "검은 배경 위 파랑·초록·올리브 컬러 원석 세 개"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/f5f3a3e0779d45bca82a2fadbec9a0ff.jpg",
+      "image": "assets/treasure/f5f3a3e0779d45bca82a2fadbec9a0ff.jpg",
       "location": null,
       "group_id": null,
       "notes": null
@@ -658,7 +658,7 @@
       "keywords": [
         "노트에 손글씨로 일기를 쓰고 있는 모습"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/b51445817e9e4a8fa47da12dee6a436b.jpg",
+      "image": "assets/treasure/b51445817e9e4a8fa47da12dee6a436b.jpg",
       "location": null,
       "group_id": null,
       "notes": null
@@ -670,7 +670,7 @@
       "keywords": [
         "핸드폰을 한 손으로 쥐고 다른 손으로 조작하는 모습"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/b42b9de4ca60487285ee97047f980940.jpg",
+      "image": "assets/treasure/b42b9de4ca60487285ee97047f980940.jpg",
       "location": null,
       "group_id": null,
       "notes": null
@@ -682,7 +682,7 @@
       "keywords": [
         "이집트 피라미드 앞 낙타 행렬과 일몰 풍경"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/845d008c679a46a485085423d694101a.jpg",
+      "image": "assets/treasure/845d008c679a46a485085423d694101a.jpg",
       "location": null,
       "group_id": null,
       "notes": null
@@ -694,7 +694,7 @@
       "keywords": [
         "셜록 기념품·서점 입구, Closed 사인"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/118bf5b0e57f4b419694818459406538.jpg",
+      "image": "assets/treasure/118bf5b0e57f4b419694818459406538.jpg",
       "location": null,
       "group_id": null,
       "notes": null
@@ -706,7 +706,7 @@
       "keywords": [
         "캐리어를 끌고 노을 진 길을 걷는 남성 실루엣"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/5d3e96fadcf243938f7721b8d34b17bd.jpg",
+      "image": "assets/treasure/5d3e96fadcf243938f7721b8d34b17bd.jpg",
       "location": null,
       "group_id": null,
       "notes": null
@@ -718,7 +718,7 @@
       "keywords": [
         "항구에 쌓인 주황·갈색 화물 컨테이너 더미"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/e6eec6840e4e40df938bda8f79d3b546.jpg",
+      "image": "assets/treasure/e6eec6840e4e40df938bda8f79d3b546.jpg",
       "location": null,
       "group_id": null,
       "notes": null
@@ -730,7 +730,7 @@
       "keywords": [
         "유리문 너머 1611호 회의실, 두 사람이 테이블에 앉아 있는 모습"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/9b196263af1e9e7a30b91581119f2160.png",
+      "image": "assets/treasure/9b196263af1e9e7a30b91581119f2160.png",
       "location": null,
       "group_id": null,
       "notes": "자물쇠 비밀번호 1611 → QR코드 발견 (용산구 발견자 제보)"
@@ -775,7 +775,7 @@
       "category": "day6",
       "number": 1,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/bbea500a71034c95b44a09a0ce083243.png",
+      "image": "assets/treasure/bbea500a71034c95b44a09a0ce083243.png",
       "location": "서울 용산구 · 남산타워 (발견)",
       "group_id": null,
       "notes": null
@@ -785,7 +785,7 @@
       "category": "day6",
       "number": 2,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/2ba20c3532644562ae17c06cda48a7a7.png",
+      "image": "assets/treasure/2ba20c3532644562ae17c06cda48a7a7.png",
       "location": "강원 강릉시 · 안목해변 (발견)",
       "group_id": null,
       "notes": null
@@ -795,7 +795,7 @@
       "category": "day6",
       "number": 3,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/8178eea33e414cd3adabd4d276d7cbe6.png",
+      "image": "assets/treasure/8178eea33e414cd3adabd4d276d7cbe6.png",
       "location": "서울 동작구 (발견)",
       "group_id": null,
       "notes": null
@@ -805,7 +805,7 @@
       "category": "day6",
       "number": 4,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/72f5dc3eb1c94e15a7468066231b282f.png",
+      "image": "assets/treasure/72f5dc3eb1c94e15a7468066231b282f.png",
       "location": "경기 용인시 · 처인휴게소 (발견)",
       "group_id": null,
       "notes": null
@@ -815,7 +815,7 @@
       "category": "day6",
       "number": 5,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/618ff9e4bf3c4445acf4a3107f97ed50.png",
+      "image": "assets/treasure/618ff9e4bf3c4445acf4a3107f97ed50.png",
       "location": "대구 중구 · 김광석거리 (발견)",
       "group_id": null,
       "notes": null
@@ -825,7 +825,7 @@
       "category": "day6",
       "number": 6,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/1caef0e110924787bdc998c79f1f7f67.png",
+      "image": "assets/treasure/1caef0e110924787bdc998c79f1f7f67.png",
       "location": "전남 담양군 · 메타프로방스 (발견)",
       "group_id": null,
       "notes": null
@@ -835,7 +835,7 @@
       "category": "day6",
       "number": 7,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/6f561b731b1f4be6bd7c8fb2f4a33d79.png",
+      "image": "assets/treasure/6f561b731b1f4be6bd7c8fb2f4a33d79.png",
       "location": "경남 통영 · 미륵산 추정",
       "group_id": null,
       "notes": null
@@ -845,7 +845,7 @@
       "category": "day6",
       "number": 8,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/3255c4a8bd3b451eaeb213093e8e873b.png",
+      "image": "assets/treasure/3255c4a8bd3b451eaeb213093e8e873b.png",
       "location": "경남 거제시 · 바람의언덕 추정 (발견)",
       "group_id": null,
       "notes": null
@@ -855,7 +855,7 @@
       "category": "day6",
       "number": 9,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/fc174e7b03aa4dd6a1a9dc7c161f3477.png",
+      "image": "assets/treasure/fc174e7b03aa4dd6a1a9dc7c161f3477.png",
       "location": "부산 중구 · 용두산공원 (발견)",
       "group_id": null,
       "notes": null
@@ -867,7 +867,7 @@
       "keywords": [
         "단풍"
       ],
-      "image": "https://cdn.chazm.co.kr/treasure/be49de36990c44198820f88cc194b9dd.png",
+      "image": "assets/treasure/be49de36990c44198820f88cc194b9dd.png",
       "location": "충북 충주시 · 탄금호 (발견)",
       "group_id": null,
       "notes": null
@@ -877,7 +877,7 @@
       "category": "day6",
       "number": 11,
       "keywords": [],
-      "image": "https://cdn.chazm.co.kr/treasure/378c6ecaecda4b0892f170e6739af9e5.png",
+      "image": "assets/treasure/378c6ecaecda4b0892f170e6739af9e5.png",
       "location": "제주 서귀포시 · 새연교 추정 (발견)",
       "group_id": null,
       "notes": null
