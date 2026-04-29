@@ -833,6 +833,16 @@
     {
       "day": 6,
       "category": "day6",
+      "number": 9,
+      "keywords": [],
+      "image": "https://cdn.chazm.co.kr/treasure/fc174e7b03aa4dd6a1a9dc7c161f3477.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
+    },
+    {
+      "day": 6,
+      "category": "day6",
       "number": 10,
       "keywords": [
         "단풍"
