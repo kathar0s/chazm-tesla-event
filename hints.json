@@ -769,6 +769,16 @@
       "keywords": [
         "관광"
       ]
+    },
+    {
+      "day": 6,
+      "category": "day6",
+      "number": 7,
+      "keywords": [],
+      "image": "https://cdn.chazm.co.kr/treasure/6f561b731b1f4be6bd7c8fb2f4a33d79.png",
+      "location": null,
+      "group_id": null,
+      "notes": null
     }
   ]
 }
