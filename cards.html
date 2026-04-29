@@ -467,6 +467,13 @@
             <circle cx="102" cy="99" r="5"  class="pc-marker-dot" />
             <text   x="102"  y="116"         class="pc-marker-text" x-text="cards[8].location"></text>
           </g>
+          <!-- Card #10 marker: 경남 거제시 (240, 290) -->
+          <g x-show="cards[9].found" class="pc-map-marker" :class="{ 'is-selected': selectedCard === cards[9] }" @click="selectedCard = cards[9]">
+            <circle cx="240" cy="290" r="12" class="pc-marker-pulse" />
+            <circle cx="240" cy="290" r="9"  class="pc-marker-ring" />
+            <circle cx="240" cy="290" r="5"  class="pc-marker-dot" />
+            <text   x="240"  y="307"         class="pc-marker-text" x-text="cards[9].location"></text>
+          </g>
         </svg>
 
         <!-- Info panel -->
@@ -655,8 +662,21 @@
             mapX: 102,
             mapY: 99,
           },
-          ...Array.from({ length: 2 }, (_, i) => ({
-            id: i + 10,
+          {
+            id: 10,
+            found: true,
+            location: '경남 거제시',
+            spot: '바람의언덕 추정',
+            prize: '배달의민족 5만원권',
+            finder: '쫄깃한칫솔#2475',
+            rank: '명예 수사관',
+            foundAt: '2026-04-29T10:55:00Z',
+            revealAt: '2026-04-30T10:55:00Z',
+            mapX: 240,
+            mapY: 290,
+          },
+          ...Array.from({ length: 1 }, (_, i) => ({
+            id: i + 11,
             found: false,
             location: null,
             prize: null,
