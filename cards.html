@@ -332,7 +332,7 @@
       <div class="pc-grid" x-show="view === 'cards'" x-cloak>
         <template x-for="card in cards" :key="card.id">
           <div class="pc-card-slot">
-            <template x-if="card.found && cardRevealed(card) && card.image">
+            <template x-if="card.found && card.image">
               <div class="pc-card pc-card-revealed" @click="view = 'map'; selectedCard = card">
                 <div class="pc-revealed-header">
                   <span x-text="card.hintRef || ('발견 #' + card.id)"></span>
@@ -342,7 +342,7 @@
                 </div>
               </div>
             </template>
-            <template x-if="card.found && !(cardRevealed(card) && card.image)">
+            <template x-if="card.found && !card.image">
               <div class="pc-card pc-card-found" @click="view = 'map'; selectedCard = card">
                 <div class="pc-badge">발견됨</div>
                 <div class="pc-card-id" x-text="'발견 #' + card.id"></div>
@@ -481,7 +481,7 @@
           <div class="pc-info-panel">
             <div class="pc-info-title" x-text="(selectedCard.hintRef ? selectedCard.hintRef + ' · ' : '') + '발견 #' + selectedCard.id"></div>
             <img
-              x-show="selectedCard.image && cardRevealed(selectedCard)"
+              x-show="selectedCard.image"
               :src="selectedCard.image"
               :alt="selectedCard.hintRef || ('발견 #' + selectedCard.id)"
               class="pc-info-image"
