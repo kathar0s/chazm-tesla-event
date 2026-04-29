@@ -103,6 +103,47 @@
       padding: 2px 9px;
       border-radius: 999px;
     }
+    /* Revealed (hint-style) */
+    .pc-card-revealed {
+      background: var(--card-bg);
+      color: var(--card-ink);
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+      padding: 0;
+      cursor: pointer;
+      overflow: hidden;
+      gap: 0;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .pc-card-revealed:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.6);
+    }
+    .pc-revealed-header {
+      width: 100%;
+      padding: 10px 12px 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6e6b65;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      background: rgba(0,0,0,0.02);
+      text-align: left;
+    }
+    .pc-revealed-body {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      min-height: 0;
+    }
+    .pc-revealed-body img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
     .pc-card-id { font-size: 11px; color: var(--text-dim); }
     .pc-location { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
     .pc-prize {
@@ -288,10 +329,20 @@
       <div class="pc-grid" x-show="view === 'cards'" x-cloak>
         <template x-for="card in cards" :key="card.id">
           <div class="pc-card-slot">
-            <template x-if="card.found">
+            <template x-if="card.found && cardRevealed(card) && card.image">
+              <div class="pc-card pc-card-revealed" @click="view = 'map'; selectedCard = card">
+                <div class="pc-revealed-header">
+                  <span x-text="card.hintRef || ('발견 #' + card.id)"></span>
+                </div>
+                <div class="pc-revealed-body">
+                  <img :src="card.image" :alt="card.hintRef || ('발견 #' + card.id)" loading="lazy" decoding="async" />
+                </div>
+              </div>
+            </template>
+            <template x-if="card.found && !(cardRevealed(card) && card.image)">
               <div class="pc-card pc-card-found" @click="view = 'map'; selectedCard = card">
                 <div class="pc-badge">발견됨</div>
-                <div class="pc-card-id" x-text="'#' + card.id"></div>
+                <div class="pc-card-id" x-text="'발견 #' + card.id"></div>
                 <div class="pc-location" x-text="card.location"></div>
                 <div class="pc-prize" x-text="card.prize"></div>
                 <div class="pc-finder" x-text="card.finder"></div>
@@ -305,7 +356,7 @@
             </template>
             <template x-if="!card.found">
               <div class="pc-card pc-card-hidden">
-                <div class="pc-hidden-id" x-text="'#' + card.id"></div>
+                <div class="pc-hidden-id" x-text="'발견 #' + card.id"></div>
                 <div class="pc-hidden-q">?</div>
                 <div class="pc-hidden-label">미발견</div>
               </div>
@@ -411,11 +462,11 @@
         <!-- Info panel -->
         <template x-if="selectedCard && selectedCard.found">
           <div class="pc-info-panel">
-            <div class="pc-info-title" x-text="'그림카드 #' + selectedCard.id + ' · 발견됨'"></div>
+            <div class="pc-info-title" x-text="(selectedCard.hintRef ? selectedCard.hintRef + ' · ' : '') + '발견 #' + selectedCard.id"></div>
             <img
               x-show="selectedCard.image && cardRevealed(selectedCard)"
               :src="selectedCard.image"
-              :alt="'그림카드 #' + selectedCard.id"
+              :alt="selectedCard.hintRef || ('발견 #' + selectedCard.id)"
               class="pc-info-image"
             />
             <div class="pc-info-row">
@@ -425,10 +476,6 @@
             <div class="pc-info-row" x-show="selectedCard.spot">
               <span class="pc-info-lbl">세부 위치</span>
               <span class="pc-info-val" x-text="selectedCard.spot"></span>
-            </div>
-            <div class="pc-info-row" x-show="selectedCard.hintRef">
-              <span class="pc-info-lbl">힌트 매칭</span>
-              <span class="pc-info-val" x-text="selectedCard.hintRef"></span>
             </div>
             <div class="pc-info-row">
               <span class="pc-info-lbl">상품</span>
@@ -487,6 +534,7 @@
             revealAt: '2026-04-29T04:19:00Z',
             image: 'https://cdn.chazm.co.kr/treasure/1742571ee4b6444fa914c99fe61dcff6.jpg',
             hintRef: '그림카드 힌트 No.10',
+            hintNumber: 10,
             mapX: 174,
             mapY: 132,
           },
@@ -609,12 +657,14 @@
             `[차즘 그림카드 현황] 발견 ${found.length}개 / 전체 ${this.cards.length}개\n`,
           ];
           for (const c of found) {
-            const parts = [`#${c.id}`, c.location];
+            const parts = [`발견 #${c.id}`];
+            if (c.hintRef) parts.push(c.hintRef);
+            parts.push(c.location);
             if (c.spot) parts.push(c.spot);
             parts.push(c.prize, c.finder, this.foundTime(c));
             lines.push(parts.join(' · '));
           }
-          const unfound = this.cards.filter(c => !c.found).map(c => `#${c.id}`).join(', ');
+          const unfound = this.cards.filter(c => !c.found).map(c => `발견 #${c.id}`).join(', ');
           if (unfound) lines.push(`\n미발견: ${unfound}`);
           lines.push('\n출처: https://chazm.co.kr/treasure');
 
