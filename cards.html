@@ -328,9 +328,15 @@
         <button type="button" class="pc-view-btn" :class="{ active: view === 'map' }" @click="view = 'map'">지도 뷰</button>
       </div>
 
+      <!-- Sort toggle (cards view only) -->
+      <div class="pc-view-toggle" x-show="view === 'cards'" x-cloak>
+        <button type="button" class="pc-view-btn" :class="{ active: sortBy === 'discovery' }" @click="sortBy = 'discovery'">발견 순서</button>
+        <button type="button" class="pc-view-btn" :class="{ active: sortBy === 'hint' }" @click="sortBy = 'hint'">힌트 번호</button>
+      </div>
+
       <!-- Card grid -->
       <div class="pc-grid" x-show="view === 'cards'" x-cloak>
-        <template x-for="card in cards" :key="card.id">
+        <template x-for="card in displayedCards" :key="card.id">
           <div class="pc-card-slot">
             <template x-if="card.found && card.image">
               <div class="pc-card pc-card-revealed" @click="view = 'map'; selectedCard = card">
@@ -538,6 +544,7 @@
     function pcApp() {
       return {
         view: 'cards',
+        sortBy: 'discovery',
         countdown: '',
         countdownLabel: '미발견 그림카드 일괄 공개까지',
         selectedCard: null,
@@ -726,6 +733,17 @@
 
         get foundCount() {
           return this.cards.filter(c => c.found).length;
+        },
+
+        get displayedCards() {
+          if (this.sortBy === 'hint') {
+            return [...this.cards].sort((a, b) => {
+              const ah = a.hintNumber ?? (1000 + a.id);
+              const bh = b.hintNumber ?? (1000 + b.id);
+              return ah - bh;
+            });
+          }
+          return this.cards;
         },
 
         init() {
