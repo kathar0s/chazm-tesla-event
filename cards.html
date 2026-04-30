@@ -226,6 +226,22 @@
       align-items: center;
       gap: 20px;
     }
+    .pc-map-row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 32px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 720px) {
+      .pc-map-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+    }
     .pc-map-svg { width: 100%; max-width: 320px; height: auto; display: block; }
     .pc-map-land {
       fill: #1c1c22;
@@ -419,6 +435,7 @@
 
       <!-- Map view -->
       <div class="pc-map-wrap" x-show="view === 'map'" x-cloak>
+        <div class="pc-map-row">
         <svg viewBox="0 0 370 450" class="pc-map-svg" xmlns="http://www.w3.org/2000/svg">
           <!-- South Korea mainland (simplified) -->
           <path class="pc-map-land" d="
@@ -564,6 +581,7 @@
             </div>
           </div>
         </template>
+        </div>
 
         <div class="pc-map-hint">마커를 클릭하면 발견 정보를 확인할 수 있어요</div>
       </div>
