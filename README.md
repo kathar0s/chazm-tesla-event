@@ -119,6 +119,69 @@ python3 dev.py
 
 **문의:** help@dnp.im
 
+## 보안 인시던트 메모: S3 버킷 public list 권한 노출
+
+이벤트 종료 후 확인 결과, 차즘 측 CDN 백엔드 S3 버킷이 `s3:ListBucket` 권한이 public으로 열려 있는 상태였음을 발견했습니다. 즉 **이벤트 진행 중 누구든 `https://cdn.chazm.co.kr/` 루트에 GET 요청만 보내면 전체 객체 목록을 XML로 받을 수 있었음**.
+
+### 확인 방법 (재현 가능)
+
+```bash
+# 응답 헤더에서 S3 origin 노출
+curl -sI https://cdn.chazm.co.kr/
+# → server: AmazonS3
+# → x-amz-bucket-region: ap-northeast-2
+# → x-amz-bucket-arn: arn:aws:s3:::s3-an2-prd-frontend-web-cdn
+
+# 루트 GET → ListBucketResult XML
+curl -s https://cdn.chazm.co.kr/ | head
+
+# prefix 필터로 폴더 단위 listing
+curl -s "https://cdn.chazm.co.kr/?prefix=treasure/"
+```
+
+### 노출된 자산 타임라인 (`treasure/` prefix 기준 77개 객체)
+
+| 업로드 시점 | 개수 | 내용 |
+|------------|-----|------|
+| **2026-04-23 19:10** (이벤트 시작 전날) | 22개 | 11개 그림카드 마스터 일러스트(PNG 822×720) + 11개 경품 사진(JPG 600×426) |
+| 2026-04-23 19:49 | 12개 | 차즘 캐릭터 아이콘(187×187, 5,403 bytes 동일) — 중복 업로드 |
+| 2026-04-26 03:11 | 11개 | 그림카드 공개 버전 ("그림카드 힌트 No.X" 헤더 포함, JPG) |
+| 2026-04-26 05:43 | 7개 | 3일차 이미지 힌트 |
+| 2026-04-27 08:21 | 1개 | 4일차 1611호 회의실 사진 |
+| 2026-04-28 07:37 | 11개 | 4/23 마스터 일러스트와 동일 콘텐츠 PNG 재업로드 |
+| 2026-04-29 05:09–10:04 | 11개 | 6일차 사진 힌트 |
+| 2026-04-29 05:17 | 1개 | Beats Pill 경품 사진 추가분 |
+
+### 잠재적 영향
+
+- **이벤트 시작 전 시점에 그림카드 11장의 일러스트가 모두 업로드 완료**되어 있었기 때문에, 이 버킷을 listing 한 사람은 이벤트 시작 전부터 어떤 그림이 어떤 카드인지 매핑을 시도할 수 있었음.
+- 4/23 19:10 마스터 일러스트(헤더 없는 원본)와 4/26 03:11 공개 버전(헤더 포함)을 비교하면 **각 일러스트가 어떤 "그림카드 힌트 No.X"에 해당하는지 매핑 가능**.
+- 경품 종류와 모양도 사전에 노출됨.
+- 직접적인 차키 위치까지 드러나지는 않았으나, 그림카드 분석 단계에서 큰 부정 우위를 가질 수 있었음.
+
+### 보존된 증거
+
+- `assets/treasure/` — 이벤트 중 공식적으로 공개된 30개 이미지
+- `assets/treasure/leaked/` — public listing으로만 접근 가능했던 46개 추가 파일 (13MB)
+- `assets/treasure/leaked/_bucket-listing-root-first1000.xml` — 루트 listing 응답 (1000건)
+- `assets/treasure/leaked/_bucket-listing-treasure-prefix.xml` — `treasure/` prefix listing 응답
+
+### 권장 조치
+
+운영자(차즘) 입장에서는 다음 중 하나를 적용해 list 권한을 닫는 것이 표준 대응입니다.
+
+```json
+// 버킷 정책 — Public list 명시 차단
+{
+  "Effect": "Deny",
+  "Principal": "*",
+  "Action": "s3:ListBucket",
+  "Resource": "arn:aws:s3:::s3-an2-prd-frontend-web-cdn"
+}
+```
+
+또는 S3 Block Public Access 설정에서 "Block public access to buckets and objects granted through any access control lists (ACLs)" 활성화. CloudFront만 origin으로 두고 OAI/OAC로 직접 접근을 막는 방식도 가능.
+
 ## 면책
 
 차즘과 공식적으로 관련이 없는 팬 큐레이션입니다. 이벤트 규칙/상품/일정은 공식 페이지를 기준으로 합니다.
