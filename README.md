@@ -123,6 +123,18 @@ python3 dev.py
 
 이벤트 종료 후 확인 결과, 차즘 측 CDN 백엔드 S3 버킷이 `s3:ListBucket` 권한이 public으로 열려 있는 상태였음을 발견했습니다. 즉 **이벤트 진행 중 누구든 `https://cdn.chazm.co.kr/` 루트에 GET 요청만 보내면 전체 객체 목록을 XML로 받을 수 있었음**.
 
+> [!note] 조치 완료
+> 확인 시점: **이벤트 종료 후** (이벤트 진행 중에는 확인하지 않았습니다).
+> 이후 여러 경로로 운영 측에 전달되었고, 현재는 차단된 상태입니다.
+>
+> ```
+> $ curl -sI https://cdn.chazm.co.kr/
+> HTTP/2 403          # 2026-08-19 재확인
+> <Error><Code>AccessDenied</Code>
+> ```
+>
+> 이 문서는 종료된 사안의 기록이며, 열려 있는 취약점을 안내하지 않습니다.
+
 ### 확인 방법 (재현 가능)
 
 ```bash
@@ -161,10 +173,17 @@ curl -s "https://cdn.chazm.co.kr/?prefix=treasure/"
 
 ### 보존된 증거
 
-- `assets/treasure/` — 이벤트 중 공식적으로 공개된 30개 이미지
-- `assets/treasure/leaked/` — public listing으로만 접근 가능했던 46개 추가 파일 (13MB)
+노출 사실을 입증하는 **listing 응답 2건만** 보존합니다.
+
 - `assets/treasure/leaked/_bucket-listing-root-first1000.xml` — 루트 listing 응답 (1000건)
 - `assets/treasure/leaked/_bucket-listing-treasure-prefix.xml` — `treasure/` prefix listing 응답
+
+위 타임라인과 영향 분석은 이 두 파일만으로 전부 재구성됩니다.
+
+listing 으로만 접근 가능했던 이미지 원본 46개는 **보존하지 않습니다.** 취약점의 증거는
+listing 응답이지 파일 내용이 아니며, 해당 이미지는 차즘이 공개를 의도하지 않은
+저작물이기 때문입니다. (`assets/treasure/` 의 30개는 이벤트 중 공식적으로 공개된
+이미지로, 팬 큐레이션 용도로 계속 사용합니다.)
 
 ### 권장 조치
 
